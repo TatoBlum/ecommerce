@@ -6,20 +6,25 @@ import CartWidget from '../CartWidget/cartWidget';
 
 export default class NavBar extends Component {
     
-    constructor(props) {
-        super(props)
-    
-        this.state = {
-             clicked: false,
-        }
-
-    }
+    // constructor(props) {
+    //     super(props)
+    //     this.state = {
+    //          clicked: false,
+    //     }
+    // }
+    state = {
+        clicked: false,
+    };
     
     hanldlerClick = () => {
-        this.setState({ clicked: !this.state.clicked }) 
-    }
+        // this.setState({ clicked: !this.state.clicked }) 
+        this.setState(prevState=> ({
+                clicked: !prevState.clicked
+        }));
+    };
 
     render() {
+    
         return (
             <>
                 <nav className="nav-bar">
