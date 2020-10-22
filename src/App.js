@@ -6,6 +6,11 @@ import Counter from './componentes/Counter/counter';
 
 function App() {
 
+  function onAddHandler(counter) {   
+      console.log(counter);  
+      return counter   
+  }
+
   return (
     <>
       <NavBar />
@@ -13,8 +18,9 @@ function App() {
         title='Bienvenido a eCommerce' 
       />
       <Counter 
-        max='20'
-        min='0'  
+        stock='20'
+        initial='0' 
+        onAdd={onAddHandler}
       />
     </>
   );
