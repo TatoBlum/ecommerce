@@ -12,7 +12,10 @@ function App() {
       <ItemListContainer 
         title='Bienvenido a eCommerce' 
       />
-      <Counter />
+      <Counter 
+        max='20'
+        min='0'  
+      />
     </>
   );
 }

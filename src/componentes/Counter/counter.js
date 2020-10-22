@@ -14,7 +14,7 @@ export default class Counter extends Component {
     handleDecrement = () => {
         this.setState( prevState =>({
             // count: prevState.count - 1
-            count: Math.max(prevState.count -1,0)
+            count: Math.max(prevState.count -1, this.props.min)
         }))
         console.log(this.state.count)
     };
@@ -30,7 +30,7 @@ export default class Counter extends Component {
 
         this.setState( prevState=> ({
             // count: prevState.count + 1
-            count: Math.min(prevState.count +1,20)
+            count: Math.min(prevState.count +1, this.props.max)
         }))
         console.log(this.state.count);
     }
