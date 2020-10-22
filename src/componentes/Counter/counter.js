@@ -3,18 +3,23 @@ import './counter.css';
 
 export default class Counter extends Component {
 
-    constructor(props) {
-        super(props)
+    // constructor(props) {
+    //     super(props)
     
-        this.state = {
-            count: 0 
-        }
-    };
+    //     this.state = {
+    //         count: Number(this.props.initial)
+    //     }
+    // };
+
+    state = {
+        count: this.props.initial,
+        stock: this.props.stock,        
+    }
 
     handleDecrement = () => {
         this.setState( prevState =>({
             // count: prevState.count - 1
-            count: Math.max(prevState.count -1, this.props.initial)
+            count: Math.max(prevState.count -1, 0),
         }))
         // console.log(this.state.count)
     };
@@ -22,9 +27,10 @@ export default class Counter extends Component {
     handleIncrement() {
         this.setState( prevState=> ({
             // count: prevState.count + 1 
-            count: Math.min(prevState.count +1, this.props.stock)
+            count: Math.min(prevState.count +1, this.props.stock),
         }))
         // console.log(this.state.count);
+        // console.log(this.state.stock); 
     }
 
     render() {
@@ -58,10 +64,17 @@ export default class Counter extends Component {
                 <div className="buy-container">
                     <button 
                         onClick={()=> {
-                            if (this.state.count > 0){
-                                this.props.onAdd(this.state.count)} 
-                            }
-                        }
+                            if (this.state.stock > 0 && this.state.count > 0 && this.state.stock > this.state.count){
+                                this.props.onAdd(this.state.count);
+                                this.setState(
+                                    {
+                                    stock: this.state.stock - this.state.count
+                                    }, ()=> {
+                                        console.log("Cantidad de stock: "+this.state.stock)
+                                    }
+                                )
+                            } 
+                        }}
                         className="add-button">
                             Agregar al carrito
                     </button>

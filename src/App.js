@@ -7,7 +7,7 @@ import Counter from './componentes/Counter/counter';
 function App() {
 
   function onAddHandler(counter) {   
-      console.log(counter);  
+      console.log("Cantidad de items comprados: "+counter);  
       return counter   
   }
 
@@ -18,8 +18,8 @@ function App() {
         title='Bienvenido a eCommerce' 
       />
       <Counter 
-        stock='20'
-        initial='0' 
+        stock={5}
+        initial={2} 
         onAdd={onAddHandler}
       />
     </>
