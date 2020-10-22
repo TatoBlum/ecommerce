@@ -64,7 +64,7 @@ export default class Counter extends Component {
                 <div className="buy-container">
                     <button 
                         onClick={()=> {
-                            if (this.state.stock > 0 && this.state.count > 0 && this.state.stock > this.state.count){
+                            if (this.state.stock > 0 && this.state.count > 0 && this.state.stock >= this.state.count){
                                 this.props.onAdd(this.state.count);
                                 this.setState(
                                     {
