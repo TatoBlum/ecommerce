@@ -3,14 +3,6 @@ import './counter.css';
 
 export default class Counter extends Component {
 
-    // constructor(props) {
-    //     super(props)
-    
-    //     this.state = {
-    //         count: Number(this.props.initial)
-    //     }
-    // };
-
     state = {
         count: this.props.initial,
         stock: this.props.stock,        
@@ -30,7 +22,6 @@ export default class Counter extends Component {
             count: Math.min(prevState.count +1, this.props.stock),
         }))
         // console.log(this.state.count);
-        // console.log(this.state.stock); 
     }
 
     render() {
@@ -68,7 +59,7 @@ export default class Counter extends Component {
                                 this.props.onAdd(this.state.count);
                                 this.setState(
                                     {
-                                    stock: this.state.stock - this.state.count
+                                        stock: this.state.stock - this.state.count
                                     }, ()=> {
                                         console.log("Cantidad de stock: "+this.state.stock)
                                     }
