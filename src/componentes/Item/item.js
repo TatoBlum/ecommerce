@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
+import './items.css';
 
 async function getItems(el) {
     // try {
@@ -49,7 +49,12 @@ export default function Item({items}) {
             {
                 itemList.map( (item,index)=>{
                     return (
-                        <li key={index}><a className={item.description} href={item.img}>{item.description}</a></li>
+                        <div className="itemflex" key={index}>
+                            <div>
+                                <img src={item.img} className="product-Img" alt={item.description}/>
+                                <h3 className="product-title">{item.description} Stock: {item.stock}</h3>
+                            </div>
+                        </div>
                 )})              
             }
         </>
@@ -57,3 +62,13 @@ export default function Item({items}) {
 }
 
 
+
+
+/* <li key={index}><a className={item.description} href={item.img}>{item.description}</a></li> */
+
+// `<div class="itemflex-tendencias">
+// <div>
+//     <img src="${gifUrl}" class="gifImg gif-tendencias gif-img-tendencias" alt="${gifAlt}" id="gifs">
+//     <h2 class="gradiente-tendencias-gifs">${filtroDePalabras}</h2>
+// </div> 
+// </div>`

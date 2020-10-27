@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import ItemList from '../ItemList/itemList';
 import Item from '../Item/item';
+import './itemListContainer.css';
+
+
 
 export default class ItemListContainer extends Component {
     
@@ -24,9 +27,11 @@ export default class ItemListContainer extends Component {
                 alignContent: "center",
                 top: 20,
             }}>
-                <h1>{this.props.title}</h1>
+                <h1 style={{height: 65}}>{this.props.title}</h1>
             </div>
-            <Item items={this.state.itemList} />
+            <div className="contenedor-de-items"> 
+                <Item items={this.state.itemList} />
+            </div>
             </>
         )
     }
