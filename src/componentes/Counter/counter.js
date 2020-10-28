@@ -32,8 +32,7 @@ export default class Counter extends Component {
                         display:"flex",
                         alignItems:"center",
                         justifyContent:"center",
-                        position:"relative",
-                        top:30
+                        position:"absolute",
                     }}>
                     <h3>Contador</h3>
                     <div className="counter-container">

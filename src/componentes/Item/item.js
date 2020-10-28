@@ -1,20 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './items.css';
 
-async function getItems(el) {
-    // try {
-    //     const data = await new Promise( (res,rej)=>{
-    //         setTimeout(() => {
-    //             res (el)
-    //         }, 2000);
-    //     });
-    //     return data;
-    // } 
-    // catch (error) {
-    //     console.log(error);
-    // }
 
-    
+async function getItems(el) {    
     const data = await new Promise( (res,rej)=>{
         setTimeout(() => {
             res (el)
@@ -26,8 +14,7 @@ async function getItems(el) {
     .catch(e=>{
         console.error(e)
     })
-    return data;
-    
+    return data;    
 }
 
 
@@ -39,10 +26,9 @@ export default function Item({items}) {
         (async () => {
             const [result] = await getItems(items);
             setItemList(result);
-            //console.log(items);
-    })();
-            
-})
+            console.log(itemList);
+        })();
+    })
     
     return (
         <>
@@ -63,12 +49,3 @@ export default function Item({items}) {
 
 
 
-
-/* <li key={index}><a className={item.description} href={item.img}>{item.description}</a></li> */
-
-// `<div class="itemflex-tendencias">
-// <div>
-//     <img src="${gifUrl}" class="gifImg gif-tendencias gif-img-tendencias" alt="${gifAlt}" id="gifs">
-//     <h2 class="gradiente-tendencias-gifs">${filtroDePalabras}</h2>
-// </div> 
-// </div>`
