@@ -3,45 +3,63 @@ import Counter from '../Counter/counter';
 import './itemDetail.css';
 import BuyWidget from '../BuyWidget/buyWidget'
 
+async function getItem(el) {
+    const data = await new Promise((res, rej) => {
+            res(el)
+    })
+        .then(res => {
+            return res
+        })
+        .catch(e => {
+            console.error(e)
+        })
+    return data;
+}
+
+
 export default function ItemDetail({ initial, stock, onAdd, itemDetail }) {
 
-    const [Item, setItemDetail] = useState(itemDetail);
+    const [Item, setItemDetail] = useState([]);
 
     useEffect(() => {
         (async () => {
-            setItemDetail(itemDetail);
-            // console.log(Item);
-        })();
-    }, [itemDetail, Item])
+            const result = await getItem(itemDetail);
+            setItemDetail(result);
+            //console.log(Item)
+        })()
+    }, [itemDetail])
+
 
     return (
         <>
-            <div className="item-detail-container">
-                <div className="itemDetail-flex" style={{ width: 250 }} key={Item.id}>
-                    <div className="itemDetail-img" style={{ height: "auto" }}>
-                        <img src={Item.img} className="product-Img" alt={Item.description} />
+            { Item.map((item, index) => {
+                return (
+                    <div className="item-detail-container" key={index}>
+                        <div className="itemDetail-flex" style={{ width: 250 }} key={index}>
+                            <img src={item.img} className="product-Img" alt={item.description} />
+                            <div className="itemDetail-img" style={{ height: "auto" }}>
+                            </div>
+                        </div>
+                        <Counter
+                            style={{ top: 0 }}
+                            stock={stock}
+                            initial={initial}
+                            onAdd={onAdd}
+                        />
+                        <BuyWidget
+                            divClassName="buy-icon"
+                        />
                     </div>
-                </div>
-                <Counter
-                    style={{ top: 0 }}
-                    stock={stock}
-                    initial={initial}
-                    onAdd={onAdd}
-                />
-                <BuyWidget
-                    divClassName="buy-icon"
-                />
-            </div>
+                )
+            })
+            }
+
         </>
     )
+
 }
 
-/* <BuyWidget
-divClassName="buy-icon list-items"
-/> */
 
 
-/* <div className="buy-item" style={{ position: "absolute" }}>
-<li><a className="list-items far fa-credit-card" href="#BuyButtom">Comprar</a></li>
-</div>
-</div> */
+
+

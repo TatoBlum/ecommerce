@@ -1,10 +1,10 @@
-import React, { Children } from 'react';
+import React from 'react';
 import './App.css';
 import NavBar from './componentes/NavBar/navBar';
 import ItemListContainer from './componentes/ItemListContainer/itemListContainer';
-// import Counter from './componentes/Counter/counter';
 import ItemDetailContainer from './componentes/ItemDetailContainer/itemDetailContainer';
-// import Item from './componentes/Item/item';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import ItemList from './componentes/ItemList/itemList';
 
 function App() {
 
@@ -15,24 +15,18 @@ function App() {
 
   return (
     <>
-      <NavBar />
-      <ItemListContainer
-        title='Bienvenido a eCommerce'
-      >
-        {Children}
-      </ItemListContainer>
-
-      <ItemDetailContainer
-        stock={5}
-        initial={2}
-        onAdd={onAddHandler}>
-        {/* <Counter
-          stock={5}
-          initial={2}
-          onAdd={onAddHandler}
-        /> */}
-        {Children}
-      </ItemDetailContainer>
+      <Router>
+        <NavBar />
+        <Switch>
+          <Route path="/" exact render={() =><ItemListContainer title='Bienvenido a eCommerce' />} />         
+          <Route path="/item-detail/:id" exact render={() => <ItemDetailContainer
+            items={ItemList}
+            stock={5}
+            initial={2}
+            onAdd={onAddHandler} />}
+          />                   
+        </Switch>
+      </Router>
     </>
   );
 }

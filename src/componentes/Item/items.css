@@ -1,12 +1,13 @@
 .itemflex {
     position: relative;
+    height: 275px;
     background-color: grey;
     margin: 10px;
     border: 2px solid var(--clr-background-box-gris);
   }
   
-.itemflex div {
-    height: 250px;
+.item-img-container {
+    height: 244px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -31,15 +32,40 @@
     color: #ffffff;
     font-weight: 800;
     background-image: #6668f4;
-    z-index: 10;
     position: absolute;
     align-self: flex-end;
-    position: relative;
+    /* position: relative; */
     background:#6668f4;
     position: absolute;
     right: 0;
+    border-radius: 3px;
     justify-content: flex-start;
-    top: 226px
+    top: 226px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+}
+
+.item-detail-btn-container{
+    position: relative;
+    display: flex;
+    bottom: 220px;
+}
+
+.item-detail-btn-container button{
+    background: #fff;
+    border-radius: 3px;
+    border: 0.5px solid #6668f4;
+    color: #6668f4;
+    width: 100%;
+    height: 30px;
+    cursor: pointer;
+    -webkit-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
 }
   
 

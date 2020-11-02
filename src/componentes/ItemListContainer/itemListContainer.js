@@ -1,42 +1,37 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import ItemList from '../ItemList/itemList';
 import Item from '../Item/item';
 import './itemListContainer.css';
-//import ItemDetailContainer from '../ItemDetailContainer/itemDetailContainer';
 
-export default class ItemListContainer extends Component {
+export default function ItemListContainer({title}) {
+    
+    const [itemList, setItemList] = useState([ItemList]);
 
-    constructor(props) {
-        super(props)
+    useEffect(() => {
 
-        this.state = {
-            itemList: ItemList,
-        }
-    }
+        (async ()=>{
+                setItemList(ItemList);
+                console.log(itemList)
+        })()  
 
-    render() {
-        console.log(ItemList)
-        return (
-            <>
-                <div style={{
-                    display: "flex",
-                    position: "relative",
-                    justifyContent: "center",
-                    alignContent: "center",
-                    top: 20,
-                }}>
-                    <h1 style={{ height: 65 }}>{this.props.title}</h1>
-                </div>
-                <div className="contenedor-de-items">
-                    <Item items={this.state.itemList} />
-                </div>
-                {/* <ItemDetailContainer
-                    items={this.state.itemList}
-                >
+    }, [itemList])
 
-                </ItemDetailContainer> */}
-            </>
-        )
-    }
+    return (
+        <>
+            <div style={{
+                display: "flex",
+                position: "relative",
+                justifyContent: "center",
+                alignContent: "center",
+                top: 20,
+            }}>
+                <h1 style={{ height: 65 }}>{title}</h1>
+            </div>
+            <div className="contenedor-de-items">
+                <Item items={itemList} />
+            </div>
+        </>
+    )
 }
+
 
