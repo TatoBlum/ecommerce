@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import './counter.css';
 
 export default class Counter extends Component {
@@ -53,7 +53,7 @@ export default class Counter extends Component {
                         </button>
                     </div>
                     <div className="buy-container">
-                        <Link to="/carro-de-compras">
+                        {/* <Link to="/carro-de-compras"> */}
                             <button
                                 onClick={() => {
                                     if (this.state.stock > 0 && this.state.count > 0 && this.state.stock >= this.state.count) {
@@ -68,9 +68,9 @@ export default class Counter extends Component {
                                     }
                                 }}
                                 className="add-button">
-                                Agregar al carrito
+                                Agregar al carro
                             </button>
-                        </Link>
+                        {/* </Link> */}
                     </div>
                 </div>
             </>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function BuyWidget({ divClassName }) {
     return (
@@ -6,7 +7,9 @@ export default function BuyWidget({ divClassName }) {
             position: "absolute",
             bottom: -120, justifyContent: "center", marginRight: 0
         }}>
-            <i className="far fa-credit-card" style={{ width: 220, textAlign: "center" }}><a style={{ textDecoration: "none", color: "#fff" }} href="#BuyButtom">Comprar</a></i>
+            <Link to="/carro-de-compras">
+                <i className="fas fa-shopping-cart" style={{ width: 220, textAlign: "center" }}><a style={{ textDecoration: "none", color: "#fff" }} href="#BuyButtom">Ir al carro</a></i>
+            </Link>
         </div>
 
     )
