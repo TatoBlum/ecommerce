@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 
 async function getItems(el) {
     const data = await new Promise((res, rej) => {
-        setTimeout(() => {
+        // setTimeout(() => {
             res(el)
-        }, 2000);
+        // }, 2000);
     })
         .then(res => {
             return res
