@@ -53,7 +53,6 @@ export default function Item( {items, unMount} ) {
                             <div className="item-detail-btn-container">
                                 <Link to={`/item-detail/${item.id}`}>
                                     <button
-                                        key={index}
                                         onClick={unMount}
                                         className="product-title">Detalle de Item
                                     </button>
