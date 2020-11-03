@@ -3,16 +3,16 @@ import ItemList from '../ItemList/itemList';
 import Item from '../Item/item';
 import './itemListContainer.css';
 
-export default function ItemListContainer({title}) {
-    
+export default function ItemListContainer({ title, onUnMount, unMount }) {
+
     const [itemList, setItemList] = useState([ItemList]);
 
     useEffect(() => {
 
-        (async ()=>{
-                setItemList(ItemList);
-                console.log(itemList)
-        })()  
+        (async () => {
+            setItemList(ItemList);
+            console.log(itemList)
+        })()
 
     }, [itemList])
 
@@ -28,7 +28,9 @@ export default function ItemListContainer({title}) {
                 <h1 style={{ height: 65 }}>{title}</h1>
             </div>
             <div className="contenedor-de-items">
-                <Item items={itemList} />
+                <Item
+                    onUnMount={onUnMount}
+                    items={itemList} />
             </div>
         </>
     )

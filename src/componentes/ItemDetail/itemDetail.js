@@ -5,7 +5,7 @@ import BuyWidget from '../BuyWidget/buyWidget'
 
 async function getItem(el) {
     const data = await new Promise((res, rej) => {
-            res(el)
+        res(el)
     })
         .then(res => {
             return res

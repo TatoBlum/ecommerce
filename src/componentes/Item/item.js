@@ -17,21 +17,29 @@ async function getItems(el) {
     return data;
 }
 
-export default function Item( {items} ) {
+export default function Item( {items, unMount} ) {
 
     const [itemList, setItemList] = useState([]);
 
     useEffect(() => {
+        let clean = true;
 
         (async () => {
+            if(clean){
                 const [result] = await getItems(items);
                 setItemList(result);
                 //console.log(itemList);
+            }
+
         })();
+
+        return ()=>{
+            clean=false;
+        }
 
     }, [itemList, items])
 
-
+    
     return (
         <>
             {
@@ -45,6 +53,7 @@ export default function Item( {items} ) {
                             <div className="item-detail-btn-container">
                                 <Link to={`/item-detail/${item.id}`}>
                                     <button
+                                        onClick={unMount}
                                         className="product-title">Detalle de Item
                                     </button>
                                 </Link>
