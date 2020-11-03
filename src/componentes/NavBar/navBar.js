@@ -30,7 +30,7 @@ export default class NavBar extends Component {
             <>
                 <nav className="nav-bar">
                     <div className="conteiner-title">
-                        <h1>eCommerce</h1>
+                        <h1>eShop</h1>
                     </div>
                     <div className="contenedor-ul-li">
                         <ul className={this.state.clicked ? 'menu-items active' : 'menu-items'}>

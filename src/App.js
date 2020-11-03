@@ -16,7 +16,7 @@ function App() {
   }
 
   function unMountHandler(unMount) {
-    return ()=>{
+    return () => {
       setunMount(!unMount);
       return unMount
     }
@@ -27,15 +27,20 @@ function App() {
       <Router>
         <NavBar />
         <Switch>
-          <Route path="/" exact render={() =><ItemListContainer unMount={unMount} onUnMount={unMountHandler(unMount)} title='Bienvenido a eCommerce' />} />         
+          <Route path="/" exact render={() => <ItemListContainer
+            unMount={unMount}
+            onUnMount={unMountHandler(unMount)}
+            title='Bienvenido a eShop'
+            items={ItemList} />}
+          />
           <Route path="/item-detail/:id" exact render={() => <ItemDetailContainer
             items={ItemList}
             stock={5}
             initial={2}
             onAdd={onAddHandler} />}
-          />    
-          <Route path="/carro-de-compras"></Route>   
-          <Route path="/category"></Route>              
+          />
+          <Route path="/carro-de-compras"></Route>
+          <Route path="/category"></Route>
         </Switch>
       </Router>
     </>

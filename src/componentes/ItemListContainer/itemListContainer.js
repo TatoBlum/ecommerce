@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import ItemList from '../ItemList/itemList';
+// import ItemList from '../ItemList/itemList';
 import Item from '../Item/item';
 import './itemListContainer.css';
 import { BeatLoader } from 'react-spinners';
 
 
-export default function ItemListContainer({ title, onUnMount, unMount }) {
+export default function ItemListContainer({ title, onUnMount, unMount, items }) {
 
-    const [itemList, setItemList] = useState([ItemList]);
+    // const [itemList, setItemList] = useState([ItemList]);
+    const [state, setstate] = useState([items])
 
     const [loading, setLoading] = useState(true);
     const [test, setTest] = useState(false);
@@ -17,8 +18,11 @@ export default function ItemListContainer({ title, onUnMount, unMount }) {
 
         (async () => {
             setTimeout(() => {
-                setItemList(ItemList);
-                console.log(itemList);
+                // setItemList(ItemList);
+                // console.log(itemList);
+
+                setstate(items);
+                console.log(state)
 
                 setLoading(false);
             }, 3000);
@@ -26,7 +30,7 @@ export default function ItemListContainer({ title, onUnMount, unMount }) {
 
         })()
 
-    }, [itemList])
+    }, [ state, items])
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -55,7 +59,7 @@ export default function ItemListContainer({ title, onUnMount, unMount }) {
                 <div className="contenedor-de-items">
                     <Item
                         onUnMount={onUnMount}
-                        items={itemList} />
+                        items={state} />
                 </div>
             </> : null}
         </>
