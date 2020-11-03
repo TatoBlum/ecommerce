@@ -46,13 +46,14 @@ export default function Item( {items, unMount} ) {
                 itemList.map((item, index) => {
                     return (
                         <div className="itemflex" key={index}>
-                            <div className="item-img-container">
+                            <div className="item-img-container" key={index}>
                                 <img src={item.img} className="product-Img" alt={item.description} />
-                                <h3 className="product-title">{item.description} Stock: {item.stock}</h3>
+                                <h3 className="product-title">{item.name} {item.description}</h3>
                             </div>
                             <div className="item-detail-btn-container">
                                 <Link to={`/item-detail/${item.id}`}>
                                     <button
+                                        key={index}
                                         onClick={unMount}
                                         className="product-title">Detalle de Item
                                     </button>

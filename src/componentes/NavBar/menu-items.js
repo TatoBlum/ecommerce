@@ -5,15 +5,15 @@ const MenuItems = [
     cName: 'list-items'
     },
     {
-    title: 'Products',
-    url: 'Productos',
+    title: 'Category',
+    url: '/category',
     cName: 'list-items'
     },
-    {
-    title: 'About',
-    url: 'About',
-    cName: 'list-items'
-    },    
+    // {
+    // title: 'About',
+    // url: '/about',
+    // cName: 'list-items'
+    // },    
 ]
 
 export default MenuItems;

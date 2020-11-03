@@ -34,7 +34,8 @@ function App() {
             initial={2}
             onAdd={onAddHandler} />}
           />    
-          <Route path="/carro-de-compras"></Route>               
+          <Route path="/carro-de-compras"></Route>   
+          <Route path="/category"></Route>              
         </Switch>
       </Router>
     </>

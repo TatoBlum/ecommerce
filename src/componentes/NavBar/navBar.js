@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './navBar.css';
 import MenuItems from './menu-items';
 import CartWidget from '../CartWidget/cartWidget';
+import { Link } from 'react-router-dom';
 
 
 export default class NavBar extends Component {
@@ -36,7 +37,9 @@ export default class NavBar extends Component {
                             {
                                 MenuItems.map( (item, index) =>{
                                     return (
-                                        <li key={index}><a className={item.cName} href={item.url}>{item.title}</a></li>
+                                        <Link to={item.url} className={item.cName} key={index}>
+                                            <li key={index}>{item.title}</li>
+                                        </Link>
                                     )
                                 })   
                             }

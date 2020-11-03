@@ -8,7 +8,9 @@ export default function BuyWidget({ divClassName }) {
             bottom: -120, justifyContent: "center", marginRight: 0
         }}>
             <Link to="/carro-de-compras">
-                <i className="fas fa-shopping-cart" style={{ width: 220, textAlign: "center" }}><a style={{ textDecoration: "none", color: "#fff" }} href="#BuyButtom">Ir al carro</a></i>
+                <i className="fas fa-shopping-cart" style={{ width: 220, textAlign: "center" }}>
+                Ir al carro
+                </i>
             </Link>
         </div>
 
