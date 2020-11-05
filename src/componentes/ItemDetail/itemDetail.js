@@ -16,10 +16,13 @@ async function getItem(el) {
     return data;
 }
 
-
 export default function ItemDetail({ initial, stock, onAdd, itemDetail }) {
 
     const [Item, setItemDetail] = useState([]);
+    const [unMount, setunMount] = useState(false);
+
+    const [itemCount, setitemCount] = useState(initial)
+    const [stockState, setStock] = useState(stock);
 
     useEffect(() => {
         (async () => {
@@ -30,9 +33,31 @@ export default function ItemDetail({ initial, stock, onAdd, itemDetail }) {
     }, [itemDetail])
 
 
+    function unMountHandler(unMount) {
+        setunMount(true);
+        return unMount
+    }
+
+    function onItemCount(params) {
+        setitemCount(params);
+        console.log('itemCount: ' + params)
+        return params
+    }
+
+    function onSetStock(params) {
+        setStock(params);
+        console.log('setStock: ' + params)
+        return params
+    }
+
+    useEffect(() => {
+        console.log(itemCount);
+        console.log(stockState);
+    }, [itemCount, stockState])
+
     return (
         <>
-            { Item.map((item, index) => {
+            {!unMount ? Item.map((item, index) => {
                 return (
                     <div className="item-detail-container" key={index}>
                         <div className="itemDetail-flex" style={{ width: 250 }} key={index}>
@@ -45,15 +70,21 @@ export default function ItemDetail({ initial, stock, onAdd, itemDetail }) {
                             stock={stock}
                             initial={initial}
                             onAdd={onAdd}
-                        />
-                        <BuyWidget
-                            divClassName="buy-icon"
+                            unMountHandler={unMountHandler}
+                            onItemCount={onItemCount}
+                            onSetStock={onSetStock}
                         />
                     </div>
                 )
-            })
-            }
-
+            }) : null}
+            {unMount ?
+                <div className="buy-widget-container">
+                    <BuyWidget
+                        divClassName="buy-icon"
+                        itemCount={itemCount}
+                    ></BuyWidget>
+                </div>
+                : null}
         </>
     )
 

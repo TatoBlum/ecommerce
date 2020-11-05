@@ -6,7 +6,7 @@ export default class CartWidget extends Component {
     render() {
         return (
             <div className={this.props.divClassName}>
-                <Link to="/carro-de-compras">
+                <Link to="/cart">
                     <i className="fas fa-shopping-cart"></i>
                 </Link>
             </div>
