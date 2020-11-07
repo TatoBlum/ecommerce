@@ -37,7 +37,7 @@ export default class NavBar extends Component {
                             {
                                 MenuItems.map( (item, index) =>{
                                     return (
-                                        <Link to={item.url} className={item.cName} key={index}>
+                                        <Link to={item.url} className={item.cName} style={{textDecoration:"none", color:"white"}} key={index}>
                                             <li key={index}>{item.title}</li>
                                         </Link>
                                     )

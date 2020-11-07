@@ -30,7 +30,7 @@ export default class Counter extends Component {
                         justifyContent: "center",
                         position: "absolute",
                     }}>
-                    <h3>Contador</h3>
+                    <h3 style={{fontSize:"1rem"}}>{this.props.itemName}</h3>
                     <div className="counter-container">
                         <button
                             className="cuonter-button"

@@ -70,6 +70,7 @@ export default function ItemDetail({ initial, stock, onAdd, itemDetail }) {
                             stock={stock}
                             initial={initial}
                             onAdd={onAdd}
+                            itemName={item.name}
                             unMountHandler={unMountHandler}
                             onItemCount={onItemCount}
                             onSetStock={onSetStock}

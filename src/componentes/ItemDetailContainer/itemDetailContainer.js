@@ -30,7 +30,10 @@ export default function ItemDetailContainer({ initial, stock, onAdd, items }) {
 
     useEffect(() => {
 
+        let isMount = true;
+
         (async () => {
+            if (isMount){
                 const [getList] = await getItems(items);
                 const result = getList.filter(p=> p.id === id )
 
@@ -38,7 +41,12 @@ export default function ItemDetailContainer({ initial, stock, onAdd, items }) {
                 setItem(result);
 
                 console.log(id)
+            }    
         })()
+
+        return ()=>{
+            isMount=false;
+        }
 
     }, [items, id])
 

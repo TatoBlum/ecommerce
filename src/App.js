@@ -6,6 +6,7 @@ import ItemDetailContainer from './componentes/ItemDetailContainer/itemDetailCon
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import ItemList from './componentes/ItemList/itemList';
 import Cart from './componentes/Cart/cart';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
 
@@ -40,7 +41,7 @@ function App() {
             initial={2}
             onAdd={onAddHandler} />}
           />
-          <Route path="/cart" render={()=> <Cart/>} />
+          <Route path="/cart" render={() => <Cart />} />
           <Route path="/category"></Route>
         </Switch>
       </Router>

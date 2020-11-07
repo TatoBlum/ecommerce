@@ -1,13 +1,9 @@
 .contenedor-de-items {
     position: relative;
     width: 100%;
-    display: -ms-grid;
     display: grid;
-    -ms-grid-columns: (minmax(250px, 1fr))[auto-fit];
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    justify-content: center;
     padding: 0 120px;
-    grid-auto-flow: row dense;
+    gap: 125px;
 }
