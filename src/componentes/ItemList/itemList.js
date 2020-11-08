@@ -15,7 +15,7 @@ const ItemList = [
     {
         id: '2',
         name: 'Iphone',
-        description: '11x',
+        description: 'Iphone 11x',
         stock: 5,
         img: phone
     },
