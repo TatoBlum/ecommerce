@@ -11,7 +11,9 @@ export default function CartProvider({ defaultCart = [], children}) {
     function addItem(object, amount) {
         return ()=>{
 
-            const getItem = cart.find(item => item.id === object[0].id);
+            console.log(object)
+
+            const getItem = cart.find(item => item.item.id === object[0].id);
             
             let result = { item:object[0], quantity:amount }
 
@@ -25,7 +27,7 @@ export default function CartProvider({ defaultCart = [], children}) {
 
     useEffect(() => {
         console.log(cart);
-        console.log(cart.length);
+        // console.log(cart.length);
     }, [cart ,setCart])
 
 
