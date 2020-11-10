@@ -5,7 +5,7 @@ import { Toast } from 'react-bootstrap';
 import '../BuyWidget/buywidget.css'
 
 
-export default function BuyWidget({ divClassName, itemCount }) {
+export default function BuyWidget({ divClassName, itemCount, item, addItem }) {
 
     const [showA, setShowA] = useState(false);
 
@@ -25,7 +25,9 @@ export default function BuyWidget({ divClassName, itemCount }) {
                 }}>
                     <div className="mb-2">
                         <Link to="/cart" style={{ textDecoration: 'none' }}>
-                            <Button style={{
+                            <Button 
+                                onClick={addItem(item, itemCount)}
+                                style={{
                                 background: "#6668f4", borderColor: "#6668f4"
                             }}
                             >

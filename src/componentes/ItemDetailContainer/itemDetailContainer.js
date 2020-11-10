@@ -9,7 +9,7 @@ async function getItems(list) {
     const data = await new Promise((res, rej) => {
         setTimeout(() => {
             res(list)
-        }, 3000);
+        }, 1000);
     })
         .then(res => {
             return res;
@@ -53,7 +53,7 @@ export default function ItemDetailContainer({ initial, stock, onAdd, items }) {
     useEffect(() => {
         const timer = setTimeout(() => {
             setTest(true);
-        }, 3000);
+        }, 1000);
         return () => {
             clearInterval(timer);
         }

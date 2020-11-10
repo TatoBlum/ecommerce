@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import ItemList from './componentes/ItemList/itemList';
 import Cart from './componentes/Cart/cart';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import CartProvider from './context/cartContext';
 
 function App() {
 
@@ -26,25 +27,27 @@ function App() {
 
   return (
     <>
-      <Router>
-        <NavBar />
-        <Switch>
-          <Route path="/" exact render={() => <ItemListContainer
-            unMount={unMount}
-            onUnMount={unMountHandler(unMount)}
-            title='Bienvenido a eShop'
-            items={ItemList} />}
-          />
-          <Route path="/item-detail/:id" exact render={() => <ItemDetailContainer
-            items={ItemList}
-            stock={5}
-            initial={2}
-            onAdd={onAddHandler} />}
-          />
-          <Route path="/cart" render={() => <Cart />} />
-          <Route path="/category"></Route>
-        </Switch>
-      </Router>
+      <CartProvider>
+        <Router>
+          <NavBar />
+          <Switch>
+            <Route path="/" exact render={() => <ItemListContainer
+              unMount={unMount}
+              onUnMount={unMountHandler(unMount)}
+              title='Bienvenido a eShop'
+              items={ItemList} />}
+            />
+            <Route path="/item-detail/:id" exact render={() => <ItemDetailContainer
+              items={ItemList}
+              stock={5}
+              initial={2}
+              onAdd={onAddHandler} />}
+            />
+            <Route path="/cart" render={() => <Cart />} />
+            <Route path="/category"></Route>
+          </Switch>
+        </Router>
+      </CartProvider>
     </>
   );
 }

@@ -25,7 +25,7 @@ export default function ItemListContainer({ title, onUnMount, unMount, items }) 
                 console.log(state)
 
                 setLoading(false);
-            }, 3000);
+            }, 1000);
 
 
         })()
@@ -35,7 +35,7 @@ export default function ItemListContainer({ title, onUnMount, unMount, items }) 
     useEffect(() => {
         const timer = setTimeout(() => {
             setTest(true);
-        }, 3000);
+        }, 1000);
         return () => {
             clearInterval(timer);
         }

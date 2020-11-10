@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Counter from '../Counter/counter';
 import './itemDetail.css';
 import BuyWidget from '../BuyWidget/buyWidget'
+import { useCartContext } from '../../context/cartContext';
 
 async function getItem(el) {
     const data = await new Promise((res, rej) => {
@@ -23,6 +24,8 @@ export default function ItemDetail({ initial, stock, onAdd, itemDetail }) {
 
     const [itemCount, setitemCount] = useState(initial)
     const [stockState, setStock] = useState(stock);
+
+    const {  addItem } = useCartContext();
 
     useEffect(() => {
         (async () => {
@@ -83,6 +86,8 @@ export default function ItemDetail({ initial, stock, onAdd, itemDetail }) {
                     <BuyWidget
                         divClassName="buy-icon"
                         itemCount={itemCount}
+                        item={Item}
+                        addItem={addItem}
                     ></BuyWidget>
                 </div>
                 : null}
