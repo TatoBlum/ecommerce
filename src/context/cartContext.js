@@ -11,14 +11,16 @@ export default function CartProvider({ defaultCart = [], children}) {
     function addItem(object, amount) {
         return ()=>{
 
-            console.log(object)
+            const [obj]  = object
 
-            const getItem = cart.find(item => item.item.id === object[0].id);
+            // console.log(obj.id)
+
+            const getItem = cart.find(item => item.item.id === obj.id);
             
-            let result = { item:object[0], quantity:amount }
+            let result = { item:obj, quantity:amount }
 
             if (getItem) {
-                return alert(`El item ${object[0].name} ya encuentra cargado en el carro`)
+                return alert(`El item ${obj.name} ya encuentra cargado en el carro`)
             } else {
                 setCart([...cart, result]);
             }
