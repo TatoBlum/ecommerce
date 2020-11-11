@@ -18,7 +18,7 @@ export default function CartProvider({ defaultCart = [], children}) {
             let result = { item:object[0], quantity:amount }
 
             if (getItem) {
-                return console.log('El item', object[0].name ,'ya encuentra cargado en el carro')
+                return alert(`El item ${object[0].name} ya encuentra cargado en el carro`)
             } else {
                 setCart([...cart, result]);
             }
