@@ -47,7 +47,7 @@ export default function Cart() {
             {cartTotalPrince > 0 ?
              <> 
                 <h3 className="todo" style={{ color: "grey" }}>
-                    Total price: {cartTotalPrince} 
+                    Total price: ${cartTotalPrince} 
                 </h3>
                 <div className="todo">
                     <Button
