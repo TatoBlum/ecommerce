@@ -13,7 +13,6 @@ async function getItems(list) {
     })
         .then(res => {
             return res;
-
         })
         .catch(e => {
             console.error(e);
@@ -36,11 +35,12 @@ export default function ItemDetailContainer({ initial, stock, onAdd, items }) {
             if (isMount){
                 const [getList] = await getItems(items);
                 const result = getList.filter(p=> p.id === id )
-
-                setLoading(false);
                 setItem(result);
 
-                console.log(id)
+                setLoading(false);
+                setTest(true);
+
+                // console.log(id)
             }    
         })()
 
@@ -50,14 +50,14 @@ export default function ItemDetailContainer({ initial, stock, onAdd, items }) {
 
     }, [items, id])
 
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setTest(true);
-        }, 1000);
-        return () => {
-            clearInterval(timer);
-        }
-    }, [])
+    // useEffect(() => {
+    //     const timer = setTimeout(() => {
+    //         setTest(true);
+    //     }, 1000);
+    //     return () => {
+    //         clearInterval(timer);
+    //     }
+    // }, [])
 
     return (
         <>
@@ -65,7 +65,7 @@ export default function ItemDetailContainer({ initial, stock, onAdd, items }) {
             <div className="loading-icon">
                 <BeatLoader color="#6668f4" size={12} loading={loading} />
             </div>
-            {test ? <>
+            {test && <>
                 <ItemDetail
                     itemDetail={item}
                     initial={initial}
@@ -74,7 +74,7 @@ export default function ItemDetailContainer({ initial, stock, onAdd, items }) {
                 >
                     {Children}
                 </ItemDetail>
-            </> : null}
+            </>}
         </>
     )
 }

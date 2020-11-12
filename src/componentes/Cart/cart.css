@@ -8,6 +8,8 @@
     justify-content: space-between;
     align-items: center;
     transition: all 1s ease;
+    padding: 0 120px;
+    margin-top: 35px;
 }
 
 .filter-todo {

@@ -10,13 +10,9 @@ export default function CartProvider({ defaultCart = [], children}) {
 
     function addItem(object, amount) {
         return ()=>{
-
             const [obj]  = object
-
             // console.log(obj.id)
-
             const getItem = cart.find(item => item.item.id === obj.id);
-            
             let result = { item:obj, quantity:amount }
 
             if (getItem) {
@@ -29,15 +25,13 @@ export default function CartProvider({ defaultCart = [], children}) {
 
     useEffect(() => {
         console.log(cart);
-        // console.log(cart.length);
+
     }, [cart ,setCart])
 
 
     function removeItem(id) {
         return ()=>{
-            
-            setCart(cart.filter( e=> e.item.id !== id))
-             
+            setCart(cart.filter( e=> e.item.id !== id))      
         }
     }
 
@@ -48,7 +42,7 @@ export default function CartProvider({ defaultCart = [], children}) {
     }
 
     return (
-        <CartContext.Provider value={ {cart, addItem, removeItem, removeAllItems } }>
+        <CartContext.Provider value={{ cart, addItem, removeItem, removeAllItems }}>
             {children}
         </CartContext.Provider>
     )

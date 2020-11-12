@@ -11,27 +11,31 @@ const ItemList = [
         description: 'Sennheiser HD-25',
         stock: 1,
         img: headphone,
+        prince: 100,
     },
     {
         id: '2',
         name: 'Iphone',
         description: 'Iphone 11x',
         stock: 5,
-        img: phone
+        img: phone,
+        prince: 300,
     },
     {
         id: '3',
         name: 'MacBook',
         description: 'Pro 15 2020',
         stock: 2,
-        img: macbook
+        img: macbook,
+        prince: 1500,
     },
     { 
         id: '4',
         name: 'JBL Speaker',
         description: '360-Degree Pro',
         stock: 2,
-        img: speaker
+        img: speaker,
+        prince: 200,
     }      
 ]
 
