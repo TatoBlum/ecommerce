@@ -35,8 +35,8 @@ export default function Cart() {
         <> {
             cart.map((e, index) => {
                 return (
-
                     <div className="todo" key={index}>
+                        <img src={e.item.img} alt={e.item.description} style={{height: "50px", /* object-fit: contain; */ marginRight: "15px"}} />
                         <li className="todo-items" style={{ textDecoration: "none", listStyleType: "none" }}> {e.item.name} {e.item.description} ${e.item.prince} x {e.quantity} </li>
                         <button onClick={removeItem(e.item.id)} className="trash-btn"><i className="fas fa-trash"></i></button>
                     </div>
