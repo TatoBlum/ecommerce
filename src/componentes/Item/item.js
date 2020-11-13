@@ -24,20 +24,17 @@ export default function Item({ items, unMount }) {
 
     useEffect(() => {
         let clean = true;
-
         (async () => {
             if (clean) {
                 const [result] = await getItems(items);
                 setItemList(result);
                 //console.log(itemList);
             }
-
         })();
 
         return () => {
             clean = false;
         }
-
     }, [itemList, items])
 
 
@@ -50,45 +47,30 @@ export default function Item({ items, unMount }) {
                             <div className="item-img-container" key={index}>
                                 <img src={item.img} className="product-Img" alt={item.description} />
                             </div>
-                            <Card style={{border: 0, height: 100}}>
-                                <Card.Body>
-                                    <Card.Title>{item.name}</Card.Title>
-                                    <Card.Text style={{height: 30}}>
-                                    Description: {item.description}
-                                </Card.Text>
+                            <Card className="card">
+                                <Card.Body className="card-body">
+                                    <Card.Title className="card-body-items">
+                                        {item.name}
+                                    </Card.Title>
+                                    <Card.Text className="card-body-items">
+                                        Description: {item.description}
+                                    </Card.Text>
+                                    <Card.Text>Precio: ${item.price}</Card.Text>
                                 </Card.Body>
                             </Card>
                             <div className="item-detail-btn-container">
                                 <Link to={`/item-detail/${item.id}`}>
                                     <Button
-                                        // className="item-list-btn"
                                         variant="primary"
                                         onClick={unMount}
-                                        className="product-btn-and-title">Detalle de Item
+                                        className="product-btn-and-title item-prod-btn">Detalle de Item
                                     </Button>
                                 </Link>
                             </div>
-                        </div> 
-                    )
-                })
+                        </div>
+                )})
             }
         </>
     )
 }
 
-
-
-                        // <div className="itemflex" key={index}>
-                        //     <div className="item-img-container" key={index}>
-                        //         <img src={item.img} className="product-Img" alt={item.description} />
-                        //         <h3 className="product-title">{item.name} {item.description}</h3>
-                        //     </div>
-                        //     <div className="item-detail-btn-container">
-                        //         <Link to={`/item-detail/${item.id}`}>
-                        //             <button
-                        //                 onClick={unMount}
-                        //                 className="product-title">Detalle de Item
-                        //             </button>
-                        //         </Link>
-                        //     </div>
-                        // </div> 

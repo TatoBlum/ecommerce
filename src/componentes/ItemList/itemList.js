@@ -11,7 +11,7 @@ const ItemList = [
         description: 'Sennheiser HD-25',
         stock: 1,
         img: headphone,
-        prince: 100,
+        price: 100,
     },
     {
         id: '2',
@@ -19,7 +19,7 @@ const ItemList = [
         description: 'Iphone 11x',
         stock: 5,
         img: phone,
-        prince: 300,
+        price: 300,
     },
     {
         id: '3',
@@ -27,7 +27,7 @@ const ItemList = [
         description: 'Pro 15 2020',
         stock: 2,
         img: macbook,
-        prince: 1500,
+        price: 1500,
     },
     { 
         id: '4',
@@ -35,7 +35,7 @@ const ItemList = [
         description: '360-Degree Pro',
         stock: 2,
         img: speaker,
-        prince: 200,
+        price: 200,
     }      
 ]
 
