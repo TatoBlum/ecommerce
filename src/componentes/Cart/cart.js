@@ -52,10 +52,7 @@ export default function Cart() {
         }
             {cartTotalPrince > 0 ?
              <> 
-                <h3 className="todo" style={{ color: "grey", alignSelf: "flex-end" }}>
-                    Total price: ${cartTotalPrince} 
-                </h3>
-                <div className="todo" style={{ alignSelf: "baseline"}}>
+                <div className="todo" style={{ alignSelf: "baseline", width:"110vw"}}>
                     <Button
                         onClick={removeAllItems()}
                         style={{
@@ -64,6 +61,9 @@ export default function Cart() {
                     >
                         Borrar todos los items
                     </Button>
+                    <h3 className="todo" style={{ color: "grey", alignSelf: "flex-end" }}>
+                    Total price: ${cartTotalPrince} 
+                </h3>
                 </div>
             </>
             : <CartMessage />}
