@@ -4,18 +4,6 @@ import './itemDetail.css';
 import BuyWidget from '../BuyWidget/buyWidget'
 import { useCartContext } from '../../context/cartContext';
 
-async function getItem(el) {
-    const data = await new Promise((res, rej) => {
-        res(el)
-    })
-        .then(res => {
-            return res
-        })
-        .catch(e => {
-            console.error(e)
-        })
-    return data;
-}
 
 export default function ItemDetail({ initial, stock, onAdd, itemDetail }) {
 
@@ -28,12 +16,11 @@ export default function ItemDetail({ initial, stock, onAdd, itemDetail }) {
     const {  addItem } = useCartContext();
 
     useEffect(() => {
-        (async () => {
-            const result = await getItem(itemDetail);
-            setItemDetail(result);
-            //console.log(Item)
-        })()
-    }, [itemDetail])
+
+            setItemDetail(itemDetail);
+            // console.log("Item");
+            // console.log(Item);
+    }, [itemDetail, Item])
 
 
     function unMountHandler(unMount) {
@@ -64,7 +51,7 @@ export default function ItemDetail({ initial, stock, onAdd, itemDetail }) {
                 return (
                     <div className="item-detail-container" key={index}>
                         <div className="itemDetail-flex" style={{ width: 250 }} key={index}>
-                            <img src={item.img} className="product-Img" alt={item.description} />
+                            <img src={`/img/${item.img}`} className="product-Img" alt={item.description} />
                             <div className="itemDetail-img" style={{ height: "auto" }}>
                             </div>
                         </div>

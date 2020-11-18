@@ -2,39 +2,36 @@ import React, { useEffect, useState } from 'react';
 import Item from '../Item/item';
 import './itemListContainer.css';
 import { BeatLoader } from 'react-spinners';
+import { getFirestore } from '../../firebase/firebase';
 
-export default function ItemListContainer({ title, onUnMount, unMount, items }) {
-
-    const [state, setstate] = useState([items])
+export default function ItemListContainer({ title }) {
 
     const [loading, setLoading] = useState(true);
     const [test, setTest] = useState(false);
 
+    const [collectionItems, setCollectionItems] = useState([])
 
     useEffect(() => {
+        
+        const db = getFirestore();
+        const itemCollection = db.collection("items");
 
-        (async () => {
-            setTimeout(() => {
-                // setItemList(ItemList);
-                // console.log(itemList);
-                setstate(items);
-                // console.log(state)
+        itemCollection.get().then((querySnapshot) => {
+            if (querySnapshot.size === 0) {
+                console.log('No results!')
+            }
+            setCollectionItems(
+                querySnapshot.docs.map(doc => ({id: doc.id, ...doc.data() }))
+            );    
+        }).catch((error) => {
+            console.log(error);
+        }).finally(()=>{
+            setLoading(false);
+            setTest(true);
+            //console.log(testingFire)
+        })
 
-                setLoading(false);
-                setTest(true);
-            }, 1000);
-        })()
-
-    }, [ state, items])
-
-    // useEffect(() => {
-    //     const timer = setTimeout(() => {
-    //         setTest(true);
-    //     }, 1000);
-    //     return () => {
-    //         clearInterval(timer);
-    //     }
-    // }, [])
+    }, [collectionItems])
 
     return (
         <>
@@ -49,30 +46,13 @@ export default function ItemListContainer({ title, onUnMount, unMount, items }) 
                     alignContent: "center",
                     top: 20,
                 }}>
-                    <h1 style={{ height: 65 }}>{title}</h1>
                 </div>
                 <div className="contenedor-de-items">
                     <Item
-                        onUnMount={onUnMount}
-                        items={state} />
+                        docs={collectionItems}    
+                    />
                 </div>
-            </> }
-            {/* {   test ? <>
-                <div style={{
-                    display: "flex",
-                    position: "relative",
-                    justifyContent: "center",
-                    alignContent: "center",
-                    top: 20,
-                }}>
-                    <h1 style={{ height: 65 }}>{title}</h1>
-                </div>
-                <div className="contenedor-de-items">
-                    <Item
-                        onUnMount={onUnMount}
-                        items={state} />
-                </div>
-            </> : null} */}
+            </>}
         </>
     )
 }

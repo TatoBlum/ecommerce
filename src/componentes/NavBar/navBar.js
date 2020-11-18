@@ -22,7 +22,7 @@ export default function NavBar() {
         {/* {console.log(cart.length)} */}
             <nav className="nav-bar">
                 <div className="conteiner-title">
-                    <h1>eShop</h1>
+                    <h1 className="main-title">eShop</h1>
                 </div>
                 <div className="contenedor-ul-li">
                     <ul className={clicked ? 'menu-items active' : 'menu-items'}>

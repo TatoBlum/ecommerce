@@ -4,23 +4,9 @@ import { BeatLoader } from 'react-spinners';
 import ItemDetail from '../ItemDetail/itemDetail';
 import './itemDetailContainer.css';
 import {useParams} from 'react-router-dom';
+import { getFirestore } from '../../firebase/firebase';
 
-async function getItems(list) {
-    const data = await new Promise((res, rej) => {
-        setTimeout(() => {
-            res(list)
-        }, 1000);
-    })
-        .then(res => {
-            return res;
-        })
-        .catch(e => {
-            console.error(e);
-        })
-    return data;
-}
-
-export default function ItemDetailContainer({ initial, stock, onAdd, items }) {
+export default function ItemDetailContainer({ initial, stock, onAdd }) {
 
     const [test, setTest] = useState(false);
     const [item, setItem] = useState([]);
@@ -28,36 +14,25 @@ export default function ItemDetailContainer({ initial, stock, onAdd, items }) {
     const {id} = useParams();
 
     useEffect(() => {
+        const db = getFirestore();
+        const itemCollection = db.collection("items");
+        const FSItem = itemCollection.doc(id);
 
-        let isMount = true;
+        FSItem.get().then((doc) => {
+            if (!doc.exists) {
+                console.log('Item does not exist!')
+                return;
+            }
+            setItem({ id: doc.id, ...doc.data() });
+            console.log(item)
+        }).catch((error) => {
+            console.log("Error searching items", error);
+        }).finally(()=>{
+            setLoading(false);
+            setTest(true);
+        })
 
-        (async () => {
-            if (isMount){
-                const [getList] = await getItems(items);
-                const result = getList.filter(p=> p.id === id )
-                setItem(result);
-
-                setLoading(false);
-                setTest(true);
-
-                // console.log(id)
-            }    
-        })()
-
-        return ()=>{
-            isMount=false;
-        }
-
-    }, [items, id])
-
-    // useEffect(() => {
-    //     const timer = setTimeout(() => {
-    //         setTest(true);
-    //     }, 1000);
-    //     return () => {
-    //         clearInterval(timer);
-    //     }
-    // }, [])
+    }, [item, id])
 
     return (
         <>
@@ -67,7 +42,7 @@ export default function ItemDetailContainer({ initial, stock, onAdd, items }) {
             </div>
             {test && <>
                 <ItemDetail
-                    itemDetail={item}
+                    itemDetail={[item]}
                     initial={initial}
                     stock={stock}
                     onAdd={onAdd}

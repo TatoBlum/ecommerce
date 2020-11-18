@@ -1,6 +1,12 @@
 
-.todo {
-    /* margin: 0.5rem; */
+.cart-main-container{
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cart-items {
     background: white;
     font-size: 1.5rem;
     color: black;
@@ -10,21 +16,43 @@
     transition: all 1s ease;
     padding: 15px 120px;
 }
+
+.footer{
+  align-self: "baseline";
+  width: 110vw;
+  padding: 15px 130px;
+
+}
+
+.footer-h3 {
+  color: grey; 
+  align-self: flex-end;
+  padding-right: 0px;
+}
+
 .contenedor {
   background-color: rgba(255,255,255,.85);
   background-clip: padding-box;
   border: 1px solid rgba(0,0,0,.1);
   box-shadow: 0 0.25rem 0.75rem rgba(0,0,0,.1);
-  /* margin-top: 35px; */
+  width: 90%;
 }
 
-.filter-todo {
+.cart-item-img {
+  height: 50px; 
+  margin-right: 15px;
+}
+
+.cart-item-li {
+  text-decoration: none; 
+  list-style-type: none;
+  padding: 0rem 0.5rem;
+  flex: 1;
+}
+
+/* .filter-todo {
     padding: 1rem;
-  }
-.todo li {
-    flex: 1;
-}
-
+} */
 
 .trash-btn,
 .complete-btn {
@@ -36,24 +64,31 @@
   cursor: pointer;
   font-size: 1rem;
 }
+/* 
 .complete-btn {
   background: rgb(11, 212, 162);
-}
-.todo-item {
+} */
+
+/* .todo-item {
   padding: 0rem 0.5rem;
-}
+} */
 
 .fa-trash,
 .fa-check {
   pointer-events: none;
 }
 
-.fall {
+/* .fall {
   transform: translateY(10rem) rotateZ(20deg);
   opacity: 0;
-}
+} */
 
-.completed {
+/* .completed {
   text-decoration: line-through;
   opacity: 0.5;
+} */
+
+.cart-item-remove-all-btn {
+  background-color: #6668f4 !important;
+  border-color: #6668f4 !important;
 }

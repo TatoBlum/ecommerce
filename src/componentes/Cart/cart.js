@@ -3,8 +3,6 @@ import { Button } from 'react-bootstrap';
 import { useCartContext } from '../../context/cartContext';
 import '../Cart/cart.css';
 import CartMessage from '../CartMessage/cartMessage';
-// import { CartMessage } from '../CartMessage/cartMessage';
-
 
 function getAmoutItems(cart) {
     let result = 0;
@@ -15,7 +13,6 @@ function getAmoutItems(cart) {
     })
 
     return result;
-
 }
 
 export default function Cart() {
@@ -32,42 +29,36 @@ export default function Cart() {
     }, [cart, cartTotalPrince])
 
     return (
-        <> 
-        <div style={{
-            marginTop:"30px",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",}}>
-        {
-            cart.map((e, index) => {
-                return (
-                    <div className="todo contenedor" key={index} style={{width:"90%"}}>
-                        <img src={e.item.img} alt={e.item.description} style={{height: "50px", /* object-fit: contain; */ marginRight: "15px"}} />
-                        <li className="todo-items" style={{ textDecoration: "none", listStyleType: "none" }}> {e.item.name} {e.item.description} ${e.item.price} x {e.quantity} </li>
-                        <button onClick={removeItem(e.item.id)} className="trash-btn"><i className="fas fa-trash"></i></button>
-                    </div>
+        <>
+            <div 
+                className="cart-main-container">
+                {
+                    cart.map((e, index) => {
+                        return (
+                            <div className="cart-items contenedor" key={index}>
+                                <img className="cart-item-img" src={`/img/${e.item.img}`} alt={e.item.description} />
+                                <li className="todo-items cart-item-li"> {e.item.name} {e.item.description} ${e.item.price} x {e.quantity} </li>
+                                <button onClick={removeItem(e.item.id)} className="trash-btn"><i className="fas fa-trash"></i></button>
+                            </div>
 
-                )
-            })
-        }
-            {cartTotalPrince > 0 ?
-             <> 
-                <div className="todo" style={{ alignSelf: "baseline", width:"110vw"}}>
-                    <Button
-                        onClick={removeAllItems()}
-                        style={{
-                            background: "#6668f4", borderColor: "#6668f4"
-                        }}
-                    >
-                        Borrar todos los items
-                    </Button>
-                    <h3 className="todo" style={{ color: "grey", alignSelf: "flex-end" }}>
-                    Total price: ${cartTotalPrince} 
-                </h3>
-                </div>
-            </>
-            : <CartMessage />}
-        </div>    
+                        )
+                    })
+                }
+                {cartTotalPrince > 0 ?
+                    <>
+                        <div className="cart-items footer">
+                            <Button
+                                onClick={removeAllItems()}
+                                className="cart-item-remove-all-btn">
+                                Borrar todos los items
+                            </Button>
+                            <h3 className="cart-items footer-h3">
+                                Total price: ${cartTotalPrince}
+                            </h3>
+                        </div>
+                    </>
+                : <CartMessage />}
+            </div>
         </>
     )
 }

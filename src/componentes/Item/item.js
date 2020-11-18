@@ -1,51 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './items.css';
 import { Link } from 'react-router-dom';
-import { Card, Button } from 'react-bootstrap'
+import { Card, Button } from 'react-bootstrap';
 
-async function getItems(el) {
-    const data = await new Promise((res, rej) => {
-        // setTimeout(() => {
-        res(el)
-        // }, 2000);
-    })
-        .then(res => {
-            return res
-        })
-        .catch(e => {
-            console.error(e)
-        })
-    return data;
-}
 
-export default function Item({ items, unMount }) {
+export default function Item({ docs }) {
 
-    const [itemList, setItemList] = useState([]);
-
-    useEffect(() => {
-        let clean = true;
-        (async () => {
-            if (clean) {
-                const [result] = await getItems(items);
-                setItemList(result);
-                //console.log(itemList);
-            }
-        })();
-
-        return () => {
-            clean = false;
-        }
-    }, [itemList, items])
-
+    const documentsFireStore = docs;
 
     return (
         <>
             {
-                itemList.map((item, index) => {
+                documentsFireStore.map((item, index) => {
                     return (
                         <div className="itemflex" key={index}>
                             <div className="item-img-container" key={index}>
-                                <img src={item.img} className="product-Img" alt={item.description} />
+                                <img 
+                                    src={`/img/${item.img}`}    
+                                    className="product-Img" alt={item.description} />
                             </div>
                             <Card className="card">
                                 <Card.Body className="card-body">
@@ -62,7 +34,6 @@ export default function Item({ items, unMount }) {
                                 <Link to={`/item-detail/${item.id}`}>
                                     <Button
                                         variant="primary"
-                                        onClick={unMount}
                                         className="product-btn-and-title item-prod-btn">Detalle de Item
                                     </Button>
                                 </Link>
