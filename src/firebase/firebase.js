@@ -2,7 +2,7 @@ import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 
 const app = firebase.initializeApp({
-    apiKey: "AIzaSyCDfTu4fGBy7y_8ZAAvDJxSPg_Grxeq0sU",
+    apiKey: process.env.apiKey,
     authDomain: "e-commer-coder.firebaseapp.com",
     databaseURL: "https://e-commer-coder.firebaseio.com",
     projectId: "e-commer-coder",
