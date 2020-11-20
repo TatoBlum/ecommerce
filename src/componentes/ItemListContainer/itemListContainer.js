@@ -31,7 +31,7 @@ export default function ItemListContainer({ title }) {
             //console.log(testingFire)
         })
 
-    }, [collectionItems])
+    }, []) //collectionItems
 
     return (
         <>

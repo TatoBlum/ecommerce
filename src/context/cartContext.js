@@ -28,18 +28,21 @@ export default function CartProvider({ defaultCart = [], children}) {
 
     }, [cart ,setCart])
 
-
     function removeItem(id) {
         return ()=>{
             setCart(cart.filter( e=> e.item.id !== id))      
         }
     }
 
-    function removeAllItems() {
-        return ()=>{
-            setCart([]);
-        }
+    const removeAllItems = () =>{
+        setCart([]);    
     }
+
+    // function removeAllItems() {
+    //     return ()=>{
+    //         setCart([]);
+    //     }
+    // }
 
     return (
         <CartContext.Provider value={{ cart, addItem, removeItem, removeAllItems }}>

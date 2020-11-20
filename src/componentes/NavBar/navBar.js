@@ -4,6 +4,8 @@ import MenuItems from './menu-items';
 import CartWidget from '../CartWidget/cartWidget';
 import { Link } from 'react-router-dom';
 import { useCartContext } from '../../context/cartContext';
+import { Dropdown, DropdownButton } from 'react-bootstrap';
+
 
 
 export default function NavBar() {
@@ -14,12 +16,14 @@ export default function NavBar() {
 
     function hanldlerClick() {
         setClicked(!clicked);
-        return clicked;        
+        return clicked;
     }
+
+    const [ , category ] = MenuItems;
 
     return (
         <>
-        {/* {console.log(cart.length)} */}
+            {/* {console.log(cart.length)} */}
             <nav className="nav-bar">
                 <div className="conteiner-title">
                     <h1 className="main-title">eShop</h1>
@@ -28,6 +32,16 @@ export default function NavBar() {
                     <ul className={clicked ? 'menu-items active' : 'menu-items'}>
                         {
                             MenuItems.map((item, index) => {
+                                if (item.subCat.length > 0) return (
+                                    <DropdownButton className="drop-down" key={index} id="dropdown-basic-button" title={item.title}>
+                                        {category.subCat.map((item, index) => {
+                                            return (
+                                                <Dropdown.Item as={Link} className="drop-down-items" key={index} to={`/category/${item.name}`}>{item.name}</Dropdown.Item>
+                                            )
+                                        })
+                                        }
+                                    </DropdownButton>
+                                )
                                 return (
                                     <Link to={item.url} className={item.cName} style={{ textDecoration: "none", color: "white" }} key={index}>
                                         <li key={index}>{item.title}</li>

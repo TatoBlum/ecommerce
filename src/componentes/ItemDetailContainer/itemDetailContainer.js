@@ -24,7 +24,7 @@ export default function ItemDetailContainer({ initial, stock, onAdd }) {
                 return;
             }
             setItem({ id: doc.id, ...doc.data() });
-            console.log(item)
+            //console.log(item)
         }).catch((error) => {
             console.log("Error searching items", error);
         }).finally(()=>{
@@ -32,7 +32,7 @@ export default function ItemDetailContainer({ initial, stock, onAdd }) {
             setTest(true);
         })
 
-    }, [item, id])
+    }, [id]) //item , id
 
     return (
         <>

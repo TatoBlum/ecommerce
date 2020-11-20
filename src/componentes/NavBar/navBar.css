@@ -1,5 +1,4 @@
 .nav-bar{
-    /* background: #000; */
     background: linear-gradient(90deg, rgb(110, 94, 254) 0%, rgb(73,63,252,100%));
     height: 50px;
     display: flex;
@@ -71,12 +70,30 @@ ul.menu-items{
     -o-transition: all 0.2s ease-out;
 }
 
+.dropdown-toggle{
+    background-color: transparent !important;
+    border-color: transparent !important;
+}
+
+.drop-down:hover{
+    background-color: #6d76f7 !important;
+    border-radius: 5px !important;
+    transition: all 0.2s ease-out !important;
+    -webkit-border-radius: 5px !important;
+    -moz-border-radius: 5px !important;
+    -ms-border-radius: 5px !important;
+    -o-border-radius: 5px !important;
+    -webkit-transition: all 0.2s ease-out !important;
+    -moz-transition: all 0.2s ease-out !important;
+    -ms-transition: all 0.2s ease-out !important;
+    -o-transition: all 0.2s ease-out !important;
+}
+
 .cart-icon {
     display: flex;
     align-items: center;
     padding: 0.5rem 1rem;
 }
-
 
 @media screen and (max-width:800px){
     .nav-bar{
@@ -101,7 +118,7 @@ ul.menu-items{
     }
 
     .menu-items.active{
-        background:  #6668f4;
+        background: #6668f4;
         left: 0;
         opacity: 1;
         transition: all 0.5 ease;

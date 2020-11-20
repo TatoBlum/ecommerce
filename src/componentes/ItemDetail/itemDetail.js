@@ -13,7 +13,7 @@ export default function ItemDetail({ initial, stock, onAdd, itemDetail }) {
     const [itemCount, setitemCount] = useState(initial)
     const [stockState, setStock] = useState(stock);
 
-    const {  addItem } = useCartContext();
+    const { addItem } = useCartContext();
 
     useEffect(() => {
 
@@ -22,16 +22,21 @@ export default function ItemDetail({ initial, stock, onAdd, itemDetail }) {
             // console.log(Item);
     }, [itemDetail, Item])
 
-
-    function unMountHandler(unMount) {
+    //probar por aca
+    const unMountHandler = () => {
         setunMount(true);
-        return unMount
+        return unMount    
     }
+
+    // function unMountHandler(unMount) {
+    //     setunMount(true);
+    //     return unMount        
+    // }
 
     function onItemCount(params) {
         setitemCount(params);
         console.log('itemCount: ' + params)
-        return params
+        return params    
     }
 
     function onSetStock(params) {

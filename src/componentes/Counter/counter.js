@@ -14,10 +14,26 @@ export default class Counter extends Component {
         }))
     };
 
-    handleIncrement() {
+    handleIncrement = () => {
         this.setState(prevState => ({
             count: Math.min(prevState.count + 1, this.props.stock),
         }))
+    }
+
+    onClickHandler  = () => {
+        if (this.state.stock > 0 && this.state.count > 0 && this.state.stock >= this.state.count) {
+            this.props.onAdd(this.state.count);
+            this.setState(
+                {
+                    stock: this.state.stock - this.state.count
+                }, () => {
+                    console.log("Cantidad de stock: " + this.state.stock)
+                    this.props.onItemCount(this.state.count);
+                    this.props.onSetStock(this.state.stock);
+                    this.props.unMountHandler(); //ver aca 
+                }
+            )
+        }
     }
 
     render() {
@@ -35,35 +51,20 @@ export default class Counter extends Component {
                         <button
                             className="cuonter-button"
                             style={{ width: "2rem", }}
-                            onClick={() => this.handleDecrement()
-                            }>
+                            onClick={this.handleDecrement}> 
                             -
                         </button>
                         <div>{this.state.count}</div>
                         <button
                             className="cuonter-button"
                             style={{ width: "2rem", }}
-                            onClick={() => this.handleIncrement()}>
+                            onClick={this.handleIncrement}> 
                             +
                         </button>
                     </div>
                     <div className="buy-container">
                             <button
-                                onClick={() => {
-                                    if (this.state.stock > 0 && this.state.count > 0 && this.state.stock >= this.state.count) {
-                                        this.props.onAdd(this.state.count);
-                                        this.setState(
-                                            {
-                                                stock: this.state.stock - this.state.count
-                                            }, () => {
-                                                console.log("Cantidad de stock: " + this.state.stock)
-                                                this.props.onItemCount(this.state.count);
-                                                this.props.onSetStock(this.state.stock);
-                                                this.props.unMountHandler();
-                                            }
-                                        )
-                                    }
-                                }}
+                                onClick={this.onClickHandler}
                                 className="add-button">
                                 Agregar al carro
                             </button>

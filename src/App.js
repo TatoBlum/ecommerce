@@ -10,7 +10,7 @@ import CartProvider from './context/cartContext';
 
 function App() {
 
-  function onAddHandler(counter) {
+  function onAddHandler (counter) {
     console.log("Cantidad de items comprados: " + counter);
     return counter
   }
