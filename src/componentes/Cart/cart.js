@@ -45,7 +45,7 @@ export default function Cart() {
     const handleInputChange = (event) => {
         setDatos({
             ...datos,
-            [event.target.name] : event.target.value
+            [event.target.name]: event.target.value
         })
     }
 
@@ -54,12 +54,13 @@ export default function Cart() {
         event.stopPropagation();
         console.log(datos);
         createOrder();
+        updateSotck();
     }
-    
+
     const createOrder = async () => {
-        const  newOrder = {
-            buyer: datos, 
-            items: cart.map( e =>  e), 
+        const newOrder = {
+            buyer: datos,
+            items: cart.map(e => e),
             date: firebase.firestore.Timestamp.fromDate(new Date()),
             total: cartTotalPrince,
         }
@@ -67,20 +68,49 @@ export default function Cart() {
         const db = getFirestore();
 
         const orders = db.collection("orders");
-    
-    try{
-        const doc = await orders.add(newOrder);
-        console.log('Order created with id: ', doc.id);
-    } catch (err) {
-        console.log(err);
-    }   
 
+        try {
+            const doc = await orders.add(newOrder);
+            console.log('Order created with id: ', doc.id);
+        } catch (err) {
+            console.log(err);
+        }
     }
+
+    const updateSotck = async () => {
+        const db = getFirestore();
+        const itemsToUpdate = db.collection('items')
+            .where(firebase.firestore.FieldPath.documentId(), 'in', cart.map(e => e.item.id));    
+
+        const query = await itemsToUpdate.get();
+        const batch = db.batch();
+
+        const outOfStock = [];
+
+        query.docs.forEach( (docSnapshot, index)=>{
+            //console.log(docSnapshot.data().stock);
+            //console.log(cart[index].quantity);
+            //console.log(outOfStock.length);
+
+            if(docSnapshot.data().stock >= cart[index].quantity) {
+                batch.update(docSnapshot.ref, {stock: docSnapshot.data().stock - cart[index].quantity });
+            } else {
+                console.log('out of stock');
+                outOfStock.push({...docSnapshot.data(), id: docSnapshot.id });
+            }
+        })
+
+        if (outOfStock.length === 0){
+            await batch.commit();
+        }
+    }
+
 
 
     return (
         <>
-            <div 
+        {cart.map(e => console.log( e.item.id))}
+            <div
                 className="cart-main-container">
                 {
                     cart.map((e, index) => {
@@ -106,23 +136,23 @@ export default function Cart() {
                                 Total price: ${cartTotalPrince}
                             </h3>
                         </div>
-                    {!showA && <Button 
+                        {!showA && <Button
                             onClick={toggleShowA}
                             variant="outline-success"
-                            style={{    
+                            style={{
                                 alignSelf: "flex-end",
                                 marginRight: "50px"
                             }}>
                             Checkout
-                        </Button> }
+                        </Button>}
 
-                        {showA && <CartForm 
+                        {showA && <CartForm
                             handleInputChange={handleInputChange}
                             handleSubmit={handleSubmit}
-                            toggleShowA={toggleShowA}                            
+                            toggleShowA={toggleShowA}
                         />}
                     </>
-                : <CartMessage />}
+                    : <CartMessage />}
             </div>
         </>
     )

@@ -36,7 +36,7 @@ export default function ItemDetailContainer({ initial, stock, onAdd }) {
 
     return (
         <>
-            {console.log(item)}
+            {console.log(item.stock)}
             <div className="loading-icon">
                 <BeatLoader color="#6668f4" size={12} loading={loading} />
             </div>
@@ -44,7 +44,7 @@ export default function ItemDetailContainer({ initial, stock, onAdd }) {
                 <ItemDetail
                     itemDetail={[item]}
                     initial={initial}
-                    stock={stock}
+                    stock={item.stock}
                     onAdd={onAdd}
                 >
                     {Children}
