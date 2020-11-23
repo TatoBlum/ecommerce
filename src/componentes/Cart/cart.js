@@ -7,6 +7,7 @@ import * as firebase from 'firebase/app';
 import { getFirestore } from '../../firebase/firebase';
 import 'firebase/firestore';
 import CartForm from '../CartForm/cartForm';
+import validarCamposNuevoUsuario from './servicios-formulario-usuario';
 
 function getAmoutItems(cart) {
     let result = 0;
@@ -69,9 +70,18 @@ export default function Cart() {
 
         const orders = db.collection("orders");
 
+        //validacion de datos
+        const resultValidation = await validarCamposNuevoUsuario(datos);
+        //resultValidation.forEach(e=> console.log(e.mensaje));
+
         try {
+            if (resultValidation.length > 0) {
+               return resultValidation.forEach(e=> alert(e.mensaje));
+            }
+    
             const doc = await orders.add(newOrder);
             console.log('Order created with id: ', doc.id);
+
         } catch (err) {
             console.log(err);
         }
@@ -109,7 +119,7 @@ export default function Cart() {
 
     return (
         <>
-        {cart.map(e => console.log( e.item.id))}
+        {console.log(datos)}
             <div
                 className="cart-main-container">
                 {
