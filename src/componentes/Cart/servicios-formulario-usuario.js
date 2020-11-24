@@ -1,3 +1,30 @@
+const validarCamposNuevoUsuario = async  (data, formErrorHandler) => {
+    
+    const {  email, reEmail  } = data;
+    
+    let errores = [];
+    
+    //chequer q email y reemail sean el mismo mail
+    if (email !== reEmail) {
+        errores.push({
+            mensaje: "Los mails no coinciden"
+        });
+
+        let [{mensaje:texto}] = errores;
+
+        formErrorHandler(texto)
+        return errores
+    }
+    
+    return true;
+};
+
+
+export default validarCamposNuevoUsuario;
+
+
+
+/*
 const validarCamposNuevoUsuario = async  (data) => {
     
     const { nombre, email, reEmail , telefono } = data;
@@ -45,5 +72,4 @@ const validarCamposNuevoUsuario = async  (data) => {
     
     return errores;
 };
-
-export default validarCamposNuevoUsuario;
+*/

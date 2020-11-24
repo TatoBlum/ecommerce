@@ -41,7 +41,15 @@ export default function Cart() {
         email: "",
         reEmail: "",
         telefono: "",
-    })
+    });
+
+    const [datosErrores, setDatosErrores] = useState(null);
+
+    const [validated, setValidated] = useState(false);
+
+    const formErrorHandler = (erroresEmail) => {
+        setDatosErrores(erroresEmail)
+    }
 
     const handleInputChange = (event) => {
         setDatos({
@@ -53,7 +61,16 @@ export default function Cart() {
     const handleSubmit = (event) => {
         event.preventDefault();
         event.stopPropagation();
-        console.log(datos);
+        
+        if (validated === false) {
+            console.log(validated)
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        setDatosErrores(null);
+        setValidated(true);
+
+        //console.log(datos);
         createOrder();
         updateSotck();
     }
@@ -71,12 +88,13 @@ export default function Cart() {
         const orders = db.collection("orders");
 
         //validacion de datos
-        const resultValidation = await validarCamposNuevoUsuario(datos);
+        const resultValidation = await validarCamposNuevoUsuario(datos, formErrorHandler);
         //resultValidation.forEach(e=> console.log(e.mensaje));
 
         try {
             if (resultValidation.length > 0) {
-               return resultValidation.forEach(e=> alert(e.mensaje));
+                setValidated(false)
+                return resultValidation.forEach(e=> e.mensaje);
             }
     
             const doc = await orders.add(newOrder);
@@ -119,7 +137,6 @@ export default function Cart() {
 
     return (
         <>
-        {console.log(datos)}
             <div
                 className="cart-main-container">
                 {
@@ -160,6 +177,8 @@ export default function Cart() {
                             handleInputChange={handleInputChange}
                             handleSubmit={handleSubmit}
                             toggleShowA={toggleShowA}
+                            validationErr={datosErrores}
+                            validation={validated}
                         />}
                     </>
                     : <CartMessage />}
