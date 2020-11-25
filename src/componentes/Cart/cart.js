@@ -43,12 +43,13 @@ export default function Cart() {
         telefono: "",
     });
 
-    const [datosErrores, setDatosErrores] = useState(null);
+    const [datosErrores, setDatosErrores] = useState([]);
 
     const [validated, setValidated] = useState(false);
 
-    const formErrorHandler = (erroresEmail) => {
-        setDatosErrores(erroresEmail)
+    const formErrorHandler = (erroresForm) => {
+        setDatosErrores([erroresForm]);
+        //console.log(erroresEmail);
     }
 
     const handleInputChange = (event) => {
@@ -63,11 +64,12 @@ export default function Cart() {
         event.stopPropagation();
         
         if (validated === false) {
-            console.log(validated)
+            //console.log(validated)
             event.preventDefault();
             event.stopPropagation();
-        }
-        setDatosErrores(null);
+        } // ver esto.... no hace nada
+
+        setDatosErrores([]);
         setValidated(true);
 
         //console.log(datos);
@@ -96,7 +98,8 @@ export default function Cart() {
                 setValidated(false)
                 return resultValidation.forEach(e=> e.mensaje);
             }
-    
+
+            setValidated(true);
             const doc = await orders.add(newOrder);
             console.log('Order created with id: ', doc.id);
 
