@@ -7,7 +7,7 @@ import * as firebase from 'firebase/app';
 import { getFirestore } from '../../firebase/firebase';
 import 'firebase/firestore';
 import CartForm from '../CartForm/cartForm';
-import validarCamposNuevoUsuario from './servicios-formulario-usuario';
+import validarCamposNuevoUsuario from '../CartForm/servicios-formulario-usuario';
 
 function getAmoutItems(cart) {
     let result = 0;
@@ -62,12 +62,10 @@ export default function Cart() {
     const handleSubmit = (event) => {
         event.preventDefault();
         event.stopPropagation();
-        
-        if (validated === false) {
-            //console.log(validated)
-            event.preventDefault();
-            event.stopPropagation();
-        } // ver esto.... no hace nada
+
+        //if (validated === false) {
+        //console.log(validated)
+        //} 
 
         setDatosErrores([]);
         setValidated(true);
@@ -91,12 +89,11 @@ export default function Cart() {
 
         //validacion de datos
         const resultValidation = await validarCamposNuevoUsuario(datos, formErrorHandler);
-        //resultValidation.forEach(e=> console.log(e.mensaje));
 
         try {
             if (resultValidation.length > 0) {
                 setValidated(false)
-                return resultValidation.forEach(e=> e.mensaje);
+                return resultValidation.forEach(e => e.mensaje);
             }
 
             setValidated(true);
@@ -111,27 +108,27 @@ export default function Cart() {
     const updateSotck = async () => {
         const db = getFirestore();
         const itemsToUpdate = db.collection('items')
-            .where(firebase.firestore.FieldPath.documentId(), 'in', cart.map(e => e.item.id));    
+            .where(firebase.firestore.FieldPath.documentId(), 'in', cart.map(e => e.item.id));
 
         const query = await itemsToUpdate.get();
         const batch = db.batch();
 
         const outOfStock = [];
 
-        query.docs.forEach( (docSnapshot, index)=>{
+        query.docs.forEach((docSnapshot, index) => {
             //console.log(docSnapshot.data().stock);
             //console.log(cart[index].quantity);
             //console.log(outOfStock.length);
 
-            if(docSnapshot.data().stock >= cart[index].quantity) {
-                batch.update(docSnapshot.ref, {stock: docSnapshot.data().stock - cart[index].quantity });
+            if (docSnapshot.data().stock >= cart[index].quantity) {
+                batch.update(docSnapshot.ref, { stock: docSnapshot.data().stock - cart[index].quantity });
             } else {
                 console.log('out of stock');
-                outOfStock.push({...docSnapshot.data(), id: docSnapshot.id });
+                outOfStock.push({ ...docSnapshot.data(), id: docSnapshot.id });
             }
         })
 
-        if (outOfStock.length === 0){
+        if (outOfStock.length === 0) {
             await batch.commit();
         }
     }
@@ -158,7 +155,7 @@ export default function Cart() {
                     <>
                         <div className="cart-items footer">
                             <Button
-                                onClick={removeAllItems} //sin ()
+                                onClick={removeAllItems}
                                 className="cart-item-remove-all-btn">
                                 Borrar todos los items
                             </Button>

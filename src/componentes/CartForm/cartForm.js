@@ -9,33 +9,30 @@ export default function CartForm({ handleInputChange, handleSubmit, toggleShowA,
     let errorMail = null;
 
     if (validationErr.length > 0) {
-        
+
         const [arr] = validationErr;
         console.log(arr)
 
         arr.map(e => {
 
             if (e.mensaje.textEr) {
-                //errorTexto = e.mensaje.textEr;
-                errorTexto = "El nombre debe tener al menos 3 caracteres";
+                errorTexto = e.mensaje.textEr;
             }
             if (e.mensaje.errEmail) {
-                errorMail = "Los mails no coinciden";
+                errorMail = e.mensaje.errEmail;
             }
-            return false;
+
+            // return false;
+            return
         })
 
     }
 
     return (
         <>
-            <div style={{
-                width: "100%",
-                display: "flex",
-                position: "relative",
-                justifyContent: "center",
-            }}>
+            <div className="form-main-container">
                 <Form noValidate validated={validation} style={{ width: "60%" }} onSubmit={handleSubmit}>
+                    
                     <Form.Group controlId="nameAndLastname">
                         <Form.Label>Nombre y Apellido</Form.Label>
                         <Form.Control isInvalid={errorTexto} onChange={handleInputChange} name="nombre" type="name" placeholder="Ingrese su nombre completo" />
@@ -54,7 +51,6 @@ export default function CartForm({ handleInputChange, handleSubmit, toggleShowA,
                         </Form.Text>
                             <Form.Control.Feedback type="invalid">{errorMail}</Form.Control.Feedback>
                         </Form.Group>
-
                         <Form.Group controlId="formBasicEmail" style={{ width: "45%" }}>
                             <Form.Label>Re ingrese su Email</Form.Label>
                             <Form.Control isInvalid={errorMail} onChange={handleInputChange} name="reEmail" type="email" placeholder="Enter email" />
@@ -73,11 +69,12 @@ export default function CartForm({ handleInputChange, handleSubmit, toggleShowA,
                     <Row style={{ justifyContent: "space-around" }}>
                         <Button onClick={toggleShowA} variant="secondary" type="cancel">
                             Cancelar
-                </Button>
+                        </Button>
                         <Button variant="primary" type="submit">
                             Submit
-                </Button>
+                        </Button>
                     </Row>
+                    
                 </Form>
             </div>
         </>

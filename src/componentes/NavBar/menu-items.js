@@ -10,8 +10,8 @@ const MenuItems = [
     url: '/category/',
     cName: 'list-items',
     subCat: [
-        {name: "Apple"},
-        {name: "Accesories"},
+        {categoryId: "Apple"},
+        {categoryId: "Accesories"},
         ],
     },    
 ]

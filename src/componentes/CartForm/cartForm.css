@@ -1,3 +1,10 @@
-.form-row{
+.form-row {
     justify-content: space-between;
+}
+
+.form-main-container {
+    width: 100%;
+    display: flex;
+    position: relative;
+    justify-content: center;
 }

@@ -36,7 +36,7 @@ export default function NavBar() {
                                     <DropdownButton className="drop-down" key={index} id="dropdown-basic-button" title={item.title}>
                                         {category.subCat.map((item, index) => {
                                             return (
-                                                <Dropdown.Item as={Link} className="drop-down-items" key={index} to={`/category/${item.name}`}>{item.name}</Dropdown.Item>
+                                                <Dropdown.Item as={Link} className="drop-down-items" key={index} to={`/category/${item.categoryId}`}>{item.categoryId}</Dropdown.Item>
                                             )
                                         })
                                         }

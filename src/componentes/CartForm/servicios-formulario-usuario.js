@@ -23,8 +23,6 @@ const validarCamposNuevoUsuario = async  (data, formErrorHandler) => {
     }
 
     if (errores.length > 0) {
-        console.log(errores)
-
         formErrorHandler(errores)
         return errores
     }

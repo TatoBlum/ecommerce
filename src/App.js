@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Cart from './componentes/Cart/cart';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import CartProvider from './context/cartContext';
+import CategoryContainer from './componentes/CategoriesContainer/categoriesContainer';
 
 function App() {
 
@@ -30,7 +31,7 @@ function App() {
               onAdd={onAddHandler} />}
             />
             <Route path="/cart" render={() => <Cart />} />
-            <Route path="/category"></Route>
+            <Route path="/category/:categoryId" exact render={() => <CategoryContainer />} />
           </Switch>
         </Router>
       </CartProvider>
