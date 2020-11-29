@@ -3,14 +3,12 @@ import { useParams } from 'react-router-dom';
 import { getFirestore } from '../../firebase/firebase';
 import { BeatLoader } from 'react-spinners';
 import Item from "../Item/item";
-//import Loading from "./Loading"
 
 export default function CategoryContainer() {
     const { categoryId } = useParams();
     const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(true);
     const [test, setTest] = useState(false);
-
 
     useEffect(() => {
         const db = getFirestore();
@@ -31,7 +29,6 @@ export default function CategoryContainer() {
 
     return (
         <>
-            {console.log(items)}
             <div className="loading-icon">
                 <BeatLoader color="#6668f4" size={12} loading={loading} />
             </div>
@@ -46,12 +43,10 @@ export default function CategoryContainer() {
                 </div>
                 <div className="contenedor-de-items">
                     <Item
-                        docs={items}    
+                        docs={items}
                     />
                 </div>
             </>}
-
-
         </>
     )
 }

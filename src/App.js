@@ -8,6 +8,7 @@ import Cart from './componentes/Cart/cart';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import CartProvider from './context/cartContext';
 import CategoryContainer from './componentes/CategoriesContainer/categoriesContainer';
+import CheckoutMessage from './componentes/CheckoutMessage/checkout-message';
 
 function App() {
 
@@ -32,6 +33,7 @@ function App() {
             />
             <Route path="/cart" render={() => <Cart />} />
             <Route path="/category/:categoryId" exact render={() => <CategoryContainer />} />
+            <Route path="/checkout" render={() => <CheckoutMessage />} />
           </Switch>
         </Router>
       </CartProvider>

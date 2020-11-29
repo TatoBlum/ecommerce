@@ -21,9 +21,7 @@ export default function CartForm({ handleInputChange, handleSubmit, toggleShowA,
             if (e.mensaje.errEmail) {
                 errorMail = e.mensaje.errEmail;
             }
-
-            // return false;
-            return
+            return; 
         })
 
     }
@@ -32,7 +30,7 @@ export default function CartForm({ handleInputChange, handleSubmit, toggleShowA,
         <>
             <div className="form-main-container">
                 <Form noValidate validated={validation} style={{ width: "60%" }} onSubmit={handleSubmit}>
-                    
+
                     <Form.Group controlId="nameAndLastname">
                         <Form.Label>Nombre y Apellido</Form.Label>
                         <Form.Control isInvalid={errorTexto} onChange={handleInputChange} name="nombre" type="name" placeholder="Ingrese su nombre completo" />
@@ -70,11 +68,13 @@ export default function CartForm({ handleInputChange, handleSubmit, toggleShowA,
                         <Button onClick={toggleShowA} variant="secondary" type="cancel">
                             Cancelar
                         </Button>
-                        <Button variant="primary" type="submit">
-                            Submit
+                        <Button 
+                                variant="primary"
+                                type="submit">
+                                Submit
                         </Button>
                     </Row>
-                    
+
                 </Form>
             </div>
         </>

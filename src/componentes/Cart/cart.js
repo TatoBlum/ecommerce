@@ -8,6 +8,7 @@ import { getFirestore } from '../../firebase/firebase';
 import 'firebase/firestore';
 import CartForm from '../CartForm/cartForm';
 import validarCamposNuevoUsuario from '../CartForm/servicios-formulario-usuario';
+import { useHistory } from 'react-router-dom';
 
 function getAmoutItems(cart) {
     let result = 0;
@@ -22,7 +23,7 @@ function getAmoutItems(cart) {
 
 export default function Cart() {
 
-    const { cart, removeItem, removeAllItems } = useCartContext();
+    const { cart, removeItem, removeAllItems, setDocId } = useCartContext();
     const [cartTotalPrince, setCartTotalPrince] = useState(0);
 
     const [showA, setShowA] = useState(false);
@@ -34,7 +35,7 @@ export default function Cart() {
         setCartTotalPrince(res);
         //console.log(cartTotalPrince)
 
-    }, [cart, cartTotalPrince])
+    }, [cart, cartTotalPrince]);
 
     const [datos, setDatos] = useState({
         nombre: "",
@@ -46,6 +47,8 @@ export default function Cart() {
     const [datosErrores, setDatosErrores] = useState([]);
 
     const [validated, setValidated] = useState(false);
+
+    //const [formStatus, setFormStatus] = useState(false);
 
     const formErrorHandler = (erroresForm) => {
         setDatosErrores([erroresForm]);
@@ -59,20 +62,22 @@ export default function Cart() {
         })
     }
 
+    const history = useHistory();
+
+
     const handleSubmit = (event) => {
         event.preventDefault();
         event.stopPropagation();
 
-        //if (validated === false) {
-        //console.log(validated)
-        //} 
+        try {
+            setDatosErrores([]);
+            setValidated(true);
+            createOrder();
+            updateSotck();    
+        } catch (err) {
+            console.log(err);
+        }
 
-        setDatosErrores([]);
-        setValidated(true);
-
-        //console.log(datos);
-        createOrder();
-        updateSotck();
     }
 
     const createOrder = async () => {
@@ -95,13 +100,16 @@ export default function Cart() {
                 setValidated(false)
                 return resultValidation.forEach(e => e.mensaje);
             }
-
             setValidated(true);
+            //setFormStatus(true);
             const doc = await orders.add(newOrder);
             console.log('Order created with id: ', doc.id);
+            setDocId(doc.id);
+            history.push('/checkout/');
 
         } catch (err) {
             console.log(err);
+            return false;
         }
     }
 
@@ -131,9 +139,8 @@ export default function Cart() {
         if (outOfStock.length === 0) {
             await batch.commit();
         }
+
     }
-
-
 
     return (
         <>
@@ -163,16 +170,15 @@ export default function Cart() {
                                 Total price: ${cartTotalPrince}
                             </h3>
                         </div>
-                        {!showA && <Button
-                            onClick={toggleShowA}
-                            variant="outline-success"
-                            style={{
-                                alignSelf: "flex-end",
-                                marginRight: "50px"
-                            }}>
-                            Checkout
-                        </Button>}
-
+                            {!showA && <Button
+                                onClick={toggleShowA}
+                                variant="outline-success"
+                                style={{
+                                    alignSelf: "flex-end",
+                                    marginRight: "50px"
+                                }}>
+                                Checkout
+                            </Button>}
                         {showA && <CartForm
                             handleInputChange={handleInputChange}
                             handleSubmit={handleSubmit}

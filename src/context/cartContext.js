@@ -8,6 +8,8 @@ export default function CartProvider({ defaultCart = [], children}) {
     
     const [cart, setCart] = useState(defaultCart);
 
+    const [docId, setDocId] = useState();
+
     function addItem(object, amount) {
         return ()=>{
             const [obj]  = object
@@ -25,7 +27,6 @@ export default function CartProvider({ defaultCart = [], children}) {
 
     useEffect(() => {
         console.log(cart);
-
     }, [cart ,setCart])
 
     function removeItem(id) {
@@ -38,14 +39,8 @@ export default function CartProvider({ defaultCart = [], children}) {
         setCart([]);    
     }
 
-    // function removeAllItems() {
-    //     return ()=>{
-    //         setCart([]);
-    //     }
-    // }
-
     return (
-        <CartContext.Provider value={{ cart, addItem, removeItem, removeAllItems }}>
+        <CartContext.Provider value={{ cart, setCart, addItem, removeItem, removeAllItems, setDocId, docId }}>
             {children}
         </CartContext.Provider>
     )

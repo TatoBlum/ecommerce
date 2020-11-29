@@ -36,7 +36,6 @@ export default function ItemDetailContainer({ initial, stock, onAdd }) {
 
     return (
         <>
-            {console.log(item.stock)}
             <div className="loading-icon">
                 <BeatLoader color="#6668f4" size={12} loading={loading} />
             </div>

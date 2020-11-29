@@ -22,6 +22,15 @@ const validarCamposNuevoUsuario = async  (data, formErrorHandler) => {
         });
     }
 
+    //campos mails incompletos
+    if (!email || !reEmail) {
+        errores.push({
+            mensaje: {
+                errEmail: "Falta completar campo"
+            }
+        });
+    }
+
     if (errores.length > 0) {
         formErrorHandler(errores)
         return errores

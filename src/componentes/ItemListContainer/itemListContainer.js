@@ -35,7 +35,6 @@ export default function ItemListContainer({ title }) {
 
     return (
         <>
-        {console.log(collectionItems)}
             <div className="loading-icon">
                 <BeatLoader color="#6668f4" size={12} loading={loading} />
             </div>

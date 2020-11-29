@@ -22,7 +22,6 @@ export default function ItemDetail({ initial, stock, onAdd, itemDetail }) {
             // console.log(Item);
     }, [itemDetail, Item])
 
-    //probar por aca
     const unMountHandler = () => {
         setunMount(true);
         return unMount    
@@ -36,18 +35,18 @@ export default function ItemDetail({ initial, stock, onAdd, itemDetail }) {
     function onItemCount(params) {
         setitemCount(params);
         console.log('itemCount: ' + params)
-        return params    
+        return itemCount    
     }
 
     function onSetStock(params) {
         setStock(params);
         console.log('setStock: ' + params)
-        return params
+        return stockState
     }
 
     useEffect(() => {
-        console.log(itemCount);
-        console.log(stockState);
+        // console.log(itemCount);
+        // console.log(stockState);
     }, [itemCount, stockState])
 
     return (
