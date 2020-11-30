@@ -21,6 +21,16 @@ function getAmoutItems(cart) {
     return result;
 }
 
+function useTextInput(defaultValue) {
+    const [val, setVal] = useState(defaultValue);
+
+    return {
+        onChange: evt => setVal(evt.target.value),
+        value: val,
+        type: "text"
+    };
+}
+
 export default function Cart() {
 
     const { cart, removeItem, removeAllItems, setDocId } = useCartContext();
@@ -30,6 +40,8 @@ export default function Cart() {
 
     const toggleShowA = () => setShowA(!showA);
 
+    const history = useHistory();
+
     useEffect(() => {
         let res = getAmoutItems(cart);
         setCartTotalPrince(res);
@@ -37,33 +49,26 @@ export default function Cart() {
 
     }, [cart, cartTotalPrince]);
 
-    const [datos, setDatos] = useState({
-        nombre: "",
-        email: "",
-        reEmail: "",
-        telefono: "",
-    });
+    const nameInput = useTextInput("");
+    const emailInput = useTextInput("");
+    const reEmailInput = useTextInput("");
+    const telefonoInput = useTextInput("");
 
+    const inputs = [
+        [nameInput],
+        [emailInput],
+        [reEmailInput],
+        [telefonoInput]
+    ];
+    
     const [datosErrores, setDatosErrores] = useState([]);
 
     const [validated, setValidated] = useState(false);
-
-    //const [formStatus, setFormStatus] = useState(false);
 
     const formErrorHandler = (erroresForm) => {
         setDatosErrores([erroresForm]);
         //console.log(erroresEmail);
     }
-
-    const handleInputChange = (event) => {
-        setDatos({
-            ...datos,
-            [event.target.name]: event.target.value
-        })
-    }
-
-    const history = useHistory();
-
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -73,16 +78,20 @@ export default function Cart() {
             setDatosErrores([]);
             setValidated(true);
             createOrder();
-            updateSotck();    
+            updateSotck();
         } catch (err) {
             console.log(err);
         }
-
     }
 
     const createOrder = async () => {
         const newOrder = {
-            buyer: datos,
+            buyer: {
+                nombre: nameInput.value,
+                email: emailInput.value,
+                reEmail: reEmailInput.value,
+                telefono: telefonoInput.value,
+            },
             items: cart.map(e => e),
             date: firebase.firestore.Timestamp.fromDate(new Date()),
             total: cartTotalPrince,
@@ -93,7 +102,7 @@ export default function Cart() {
         const orders = db.collection("orders");
 
         //validacion de datos
-        const resultValidation = await validarCamposNuevoUsuario(datos, formErrorHandler);
+        const resultValidation = await validarCamposNuevoUsuario(newOrder.buyer, formErrorHandler);
 
         try {
             if (resultValidation.length > 0) {
@@ -101,12 +110,10 @@ export default function Cart() {
                 return resultValidation.forEach(e => e.mensaje);
             }
             setValidated(true);
-            //setFormStatus(true);
             const doc = await orders.add(newOrder);
-            console.log('Order created with id: ', doc.id);
+            //console.log('Order created with id: ', doc.id);
             setDocId(doc.id);
             history.push('/checkout/');
-
         } catch (err) {
             console.log(err);
             return false;
@@ -170,21 +177,22 @@ export default function Cart() {
                                 Total price: ${cartTotalPrince}
                             </h3>
                         </div>
-                            {!showA && <Button
-                                onClick={toggleShowA}
-                                variant="outline-success"
-                                style={{
-                                    alignSelf: "flex-end",
-                                    marginRight: "50px"
-                                }}>
-                                Checkout
+                        {!showA && <Button
+                            onClick={toggleShowA}
+                            variant="outline-success"
+                            style={{
+                                alignSelf: "flex-end",
+                                marginRight: "50px"
+                            }}>
+                            Checkout
                             </Button>}
                         {showA && <CartForm
-                            handleInputChange={handleInputChange}
+                            //handleInputChange={handleInputChange}
                             handleSubmit={handleSubmit}
                             toggleShowA={toggleShowA}
                             validationErr={datosErrores}
                             validation={validated}
+                            inputs={inputs}
                         />}
                     </>
                     : <CartMessage />}

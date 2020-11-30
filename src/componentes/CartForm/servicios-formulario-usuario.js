@@ -1,6 +1,13 @@
 const validarCamposNuevoUsuario = async  (data, formErrorHandler) => {
     
-    const { nombre,  email, reEmail  } = data;
+    // nombre: nameInput.value,
+    // email: emailInput.value,
+    // reEmail: reEmailInput.value,
+    // telefono: telefonoInput.value,
+
+    const { nombre,  email, reEmail, telefono } = data;
+
+    console.log(data.nombre)
     
     let errores = [];
 
@@ -27,6 +34,14 @@ const validarCamposNuevoUsuario = async  (data, formErrorHandler) => {
         errores.push({
             mensaje: {
                 errEmail: "Falta completar campo"
+            }
+        });
+    }
+
+    if (!(/^\d{9}$/.test(telefono))) {
+        errores.push({
+            mensaje: {
+                errTel: "Puede ingresar hasta 9 numeros"
             }
         });
     }
