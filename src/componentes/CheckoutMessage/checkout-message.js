@@ -18,7 +18,7 @@ export default function CheckoutMessage() {
                 <Alert variant="success">
                     <Alert.Heading>Su compra ha sido realizado con exito</Alert.Heading>
                     <p>
-                        Felicidades!! su id de compora es {docId}
+                        Felicidades!! su <strong>id</strong> de compora es: <strong>{docId}</strong>
                     </p>
                     <hr />
                 </Alert>

@@ -86,7 +86,7 @@ export default function CartForm({ handleSubmit, toggleShowA, validation, valida
                             {...telefonoInput}
                             placeholder="Telefono" />
                         <Form.Text className="text-muted">
-                            Ingrese un numero de telefono de 9 digitos(ej. 1157770000).
+                            Ingrese un numero de telefono de 10 digitos(ej. 1157770000).
                         </Form.Text>    
                         <Form.Control.Feedback type="invalid">{errTelefono}</Form.Control.Feedback>
                     </Form.Group>
