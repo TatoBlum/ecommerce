@@ -3,13 +3,13 @@ import 'firebase/firestore';
 
 const app = firebase.initializeApp({
     apiKey: process.env.apiKey,
-    authDomain: "e-commer-coder.firebaseapp.com",
-    databaseURL: "https://e-commer-coder.firebaseio.com",
+    authDomain: process.env.authoDomain,
+    databaseURL: process.env.databaseUrl,
     projectId: "e-commer-coder",
-    storageBucket: "e-commer-coder.appspot.com",
-    messagingSenderId: "728386645300",
-    appId: "1:728386645300:web:c048a95f3e124057f30961",
-    measurementId: "G-8FCM9NSSCJ"
+    storageBucket: process.env.storageBucket,
+    messagingSenderId:process.env.messagingSenderId,
+    appId: process.env.appId,
+    measurementId: process.env.measurementId
 });
 
 export function getFirebase() {
