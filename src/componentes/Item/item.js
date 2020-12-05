@@ -13,7 +13,7 @@ export default function Item({ docs }) {
             {
                 documentsFireStore.map((item, index) => {
                     return (
-                        <div className="itemflex" key={index}>
+                        <div className="itemflex" key={item.id}>
                             <div className="item-img-container" key={index}>
                                 <img 
                                     src={`/img/${item.img}`}    

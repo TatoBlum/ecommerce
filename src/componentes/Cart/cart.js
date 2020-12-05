@@ -9,6 +9,8 @@ import 'firebase/firestore';
 import CartForm from '../CartForm/cartForm';
 import validarCamposNuevoUsuario from '../CartForm/servicios-formulario-usuario';
 import { useHistory } from 'react-router-dom';
+import { BeatLoader } from 'react-spinners';
+
 
 function getAmoutItems(cart) {
     let result = 0;
@@ -40,6 +42,8 @@ export default function Cart() {
 
     const toggleShowA = () => setShowA(!showA);
 
+    const [loading, setLoading] = useState(false);
+
     const history = useHistory();
 
     useEffect(() => {
@@ -60,7 +64,7 @@ export default function Cart() {
         [reEmailInput],
         [telefonoInput]
     ];
-    
+
     const [datosErrores, setDatosErrores] = useState([]);
 
     const [validated, setValidated] = useState(false);
@@ -75,10 +79,12 @@ export default function Cart() {
         event.stopPropagation();
 
         try {
+            setLoading(true);
             setDatosErrores([]);
             setValidated(true);
             createOrder();
             updateSotck();
+            setLoading(true);
         } catch (err) {
             console.log(err);
         }
@@ -151,8 +157,10 @@ export default function Cart() {
 
     return (
         <>
-            <div
-                className="cart-main-container">
+            <div className="loading-icon">
+                <BeatLoader color="#6668f4" size={12} loading={loading} />
+            </div>
+            <div className="cart-main-container">
                 {
                     cart.map((e, index) => {
                         return (

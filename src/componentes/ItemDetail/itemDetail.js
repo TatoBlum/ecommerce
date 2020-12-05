@@ -53,8 +53,8 @@ export default function ItemDetail({ initial, stock, onAdd, itemDetail }) {
         <>
             {!unMount ? Item.map((item, index) => {
                 return (
-                    <div className="item-detail-container" key={index}>
-                        <div className="itemDetail-flex" style={{ width: 250 }} key={index}>
+                    <div className="item-detail-container" key={item.id}>
+                        <div className="itemDetail-flex" style={{ width: 250 }}>
                             <img src={`/img/${item.img}`} className="product-Img" alt={item.description} />
                             <div className="itemDetail-img" style={{ height: "auto" }}>
                             </div>
