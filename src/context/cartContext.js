@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 
 export const CartContext = React.createContext();
 
@@ -12,22 +12,16 @@ export default function CartProvider({ defaultCart = [], children}) {
 
     function addItem(object, amount) {
         return ()=>{
-            const [obj]  = object
-            // console.log(obj.id)
-            const getItem = cart.find(item => item.item.id === obj.id);
-            let result = { item:obj, quantity:amount }
+            const getItem = cart.find(item => item.item.id === object.id);
+            let result = { item:object, quantity:amount }
 
             if (getItem) {
-                return alert(`El item ${obj.name} ya encuentra cargado en el carro`)
+                return alert(`El item ${object.name} ya encuentra cargado en el carro`)
             } else {
                 setCart([...cart, result]);
             }
         }
     }
-
-    useEffect(() => {
-        console.log(cart);
-    }, [cart ,setCart])
 
     function removeItem(id) {
         return ()=>{

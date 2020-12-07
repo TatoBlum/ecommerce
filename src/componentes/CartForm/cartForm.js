@@ -33,7 +33,6 @@ export default function CartForm({ handleSubmit, toggleShowA, validation, valida
 
     if (validationErr.length > 0) {
         const [arr] = validationErr;
-        //console.log(arr)
         formErrorsHandler(arr);
     }
 

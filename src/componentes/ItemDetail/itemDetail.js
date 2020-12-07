@@ -16,62 +16,45 @@ export default function ItemDetail({ initial, stock, onAdd, itemDetail }) {
     const { addItem } = useCartContext();
 
     useEffect(() => {
-
-            setItemDetail(itemDetail);
-            // console.log("Item");
-            // console.log(Item);
+        setItemDetail(itemDetail);
     }, [itemDetail, Item])
+
+    const { name, description, img } = Item;
 
     const unMountHandler = () => {
         setunMount(true);
-        return unMount    
+        return unMount
     }
-
-    // function unMountHandler(unMount) {
-    //     setunMount(true);
-    //     return unMount        
-    // }
 
     function onItemCount(params) {
         setitemCount(params);
-        console.log('itemCount: ' + params)
-        return itemCount    
+        return itemCount
     }
 
     function onSetStock(params) {
         setStock(params);
-        console.log('setStock: ' + params)
         return stockState
     }
 
-    useEffect(() => {
-        // console.log(itemCount);
-        // console.log(stockState);
-    }, [itemCount, stockState])
-
     return (
         <>
-            {!unMount ? Item.map((item, index) => {
-                return (
-                    <div className="item-detail-container" key={item.id}>
-                        <div className="itemDetail-flex" style={{ width: 250 }}>
-                            <img src={`/img/${item.img}`} className="product-Img" alt={item.description} />
-                            <div className="itemDetail-img" style={{ height: "auto" }}>
-                            </div>
-                        </div>
-                        <Counter
-                            style={{ top: 0 }}
-                            stock={stock}
-                            initial={initial}
-                            onAdd={onAdd}
-                            itemName={item.name}
-                            unMountHandler={unMountHandler}
-                            onItemCount={onItemCount}
-                            onSetStock={onSetStock}
-                        />
+            {!unMount && <div className="item-detail-container">
+                <div className="itemDetail-flex" style={{ width: 250 }}>
+                    <img src={`/img/${img}`} className="product-Img" alt={description} />
+                    <div className="itemDetail-img" style={{ height: "auto" }}>
                     </div>
-                )
-            }) : null}
+                </div>
+                <Counter
+                    style={{ top: 0 }}
+                    stock={stock}
+                    initial={initial}
+                    onAdd={onAdd}
+                    itemName={name}
+                    unMountHandler={unMountHandler}
+                    onItemCount={onItemCount}
+                    onSetStock={onSetStock}
+                />
+            </div>}
             {unMount ?
                 <div className="buy-widget-container">
                     <BuyWidget
@@ -81,7 +64,7 @@ export default function ItemDetail({ initial, stock, onAdd, itemDetail }) {
                         addItem={addItem}
                     ></BuyWidget>
                 </div>
-                : null}
+            : null}
         </>
     )
 

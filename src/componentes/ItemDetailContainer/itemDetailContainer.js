@@ -6,7 +6,7 @@ import './itemDetailContainer.css';
 import {useParams} from 'react-router-dom';
 import { getFirestore } from '../../firebase/firebase';
 
-export default function ItemDetailContainer({ initial, stock, onAdd }) {
+export default function ItemDetailContainer({ initial, onAdd }) {
 
     const [test, setTest] = useState(false);
     const [item, setItem] = useState([]);
@@ -24,7 +24,6 @@ export default function ItemDetailContainer({ initial, stock, onAdd }) {
                 return;
             }
             setItem({ id: doc.id, ...doc.data() });
-            //console.log(item)
         }).catch((error) => {
             console.log("Error searching items", error);
         }).finally(()=>{
@@ -32,7 +31,7 @@ export default function ItemDetailContainer({ initial, stock, onAdd }) {
             setTest(true);
         })
 
-    }, [id]) //item , id
+    }, [id]) 
 
     return (
         <>
@@ -41,7 +40,7 @@ export default function ItemDetailContainer({ initial, stock, onAdd }) {
             </div>
             {test && <>
                 <ItemDetail
-                    itemDetail={[item]}
+                    itemDetail={item}
                     initial={initial}
                     stock={item.stock}
                     onAdd={onAdd}

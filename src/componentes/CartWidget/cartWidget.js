@@ -5,13 +5,13 @@ import { useCartContext } from '../../context/cartContext';
 function getAmoutItems(cart) {
     let result = 0;
 
-    cart.forEach(e=> {
+    cart.forEach(e => {
         let items = e.quantity
         result += items
     })
 
     return result;
-    
+
 }
 
 
@@ -19,7 +19,7 @@ export default function CartWidget({ divClassName }) {
 
     const { cart } = useCartContext();
     const [cartCounter, setCartCounter] = useState(0)
-    
+
     useEffect(() => {
         let res = getAmoutItems(cart);
         setCartCounter(res)
@@ -28,7 +28,6 @@ export default function CartWidget({ divClassName }) {
 
     return (
         <>
-        {/* {console.log(result)} */}
             <div className={divClassName}>
                 <Link to="/cart">
                     <i className="fas fa-shopping-cart">{cartCounter}</i>

@@ -1,16 +1,16 @@
-import React, { useEffect } from 'react'
-import { useCartContext } from '../../context/cartContext';
-import { Alert } from 'react-bootstrap';
+import React from 'react';
+import { Alert, Button } from 'react-bootstrap';
 import '../CheckoutMessage/checkout-message.css'
+import { useHistory } from 'react-router-dom';
 
 
-export default function CheckoutMessage() {
+export default function CheckoutMessage({idFromItem}) {
 
-    const { docId, setCart } = useCartContext();
+    const history = useHistory();
 
-    useEffect(() => {
-        setCart([]);
-    }, [docId, setCart])
+    const cheoutHandler =() =>{
+        history.push('/');
+    }
 
     return (
         <>
@@ -18,9 +18,14 @@ export default function CheckoutMessage() {
                 <Alert variant="success">
                     <Alert.Heading>Su compra ha sido realizado con exito</Alert.Heading>
                     <p>
-                        Felicidades!! su <strong>id</strong> de compora es: <strong>{docId}</strong>
+                        Felicidades!! su <strong>id</strong> de compora es: <strong>{idFromItem}</strong>
                     </p>
                     <hr />
+                    <div className="d-flex justify-content-end">
+                        <Button onClick={cheoutHandler} variant="outline-success">
+                            Comenzar una nueva compra
+                        </Button>
+                    </div>
                 </Alert>
             </div>
         </>

@@ -1,76 +1,67 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import './counter.css';
 
-export default class Counter extends Component {
+export default function Counter({ stock, initial, onAdd, itemName, unMountHandler, onItemCount, onSetStock }) {
 
-    state = {
-        count: this.props.initial,
-        stock: this.props.stock,
-    }
+    const [count, setCount] = useState(initial);
+    const [itemStock, setItemStock] = useState(stock);
 
-    handleDecrement = () => {
-        this.setState(prevState => ({
-            count: Math.max(prevState.count - 1, 0),
-        }))
-    };
-
-    handleIncrement = () => {
-        this.setState(prevState => ({
-            count: Math.min(prevState.count + 1, this.props.stock),
-        }))
-    }
-
-    onClickHandler  = () => {
-        if (this.state.stock > 0 && this.state.count > 0 && this.state.stock >= this.state.count) {
-            this.props.onAdd(this.state.count);
-            this.setState(
-                {
-                    stock: this.state.stock - this.state.count
-                }, () => {
-                    console.log("Cantidad de stock: " + this.state.stock)
-                    this.props.onItemCount(this.state.count);
-                    this.props.onSetStock(this.state.stock);
-                    this.props.unMountHandler(); //ver aca 
-                }
-            )
+    const handleIncrement = () => {
+        if (itemStock > count) {
+            setCount(count + 1);
         }
     }
 
-    render() {
-        return (
-            <>
-                <div className="main-container"
-                    style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        position: "absolute",
-                    }}>
-                    <h3 style={{fontSize:"1rem"}}>{this.props.itemName}</h3>
-                    <div className="counter-container">
-                        <button
-                            className="cuonter-button"
-                            style={{ width: "2rem", }}
-                            onClick={this.handleDecrement}> 
-                            -
-                        </button>
-                        <div>{this.state.count}</div>
-                        <button
-                            className="cuonter-button"
-                            style={{ width: "2rem", }}
-                            onClick={this.handleIncrement}> 
-                            +
-                        </button>
-                    </div>
-                    <div className="buy-container">
-                            <button
-                                onClick={this.onClickHandler}
-                                className="add-button">
-                                Agregar al carro
-                            </button>
-                    </div>
-                </div>
-            </>
-        )
+    const handleDecrement = () => {
+        if (count > initial) {
+            setCount(count - 1);
+        }
     }
+
+    const onClickHandler = () => {
+        if (itemStock > 0 && count > 0 && itemStock >= count) {
+            onAdd(count);
+            setItemStock(itemStock - count);
+            onItemCount(count);
+            onSetStock(itemStock);
+            unMountHandler();
+        }
+    }
+
+    return (
+        <>
+            <div className="main-container"
+                style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    position: "absolute",
+                }}>
+                <h3 style={{ fontSize: "1rem" }}>{itemName}</h3>
+                <div className="counter-container">
+                    <button
+                        className="cuonter-button"
+                        style={{ width: "2rem", }}
+                        onClick={handleDecrement}>
+                        -
+                        </button>
+                    <div>{count}</div>
+                    <button
+                        className="cuonter-button"
+                        style={{ width: "2rem", }}
+                        onClick={handleIncrement}>
+                        +
+                        </button>
+                </div>
+                <div className="buy-container">
+                    <button
+                        onClick={onClickHandler}
+                        className="add-button">
+                        Agregar al carro
+                    </button>
+                </div>
+            </div>
+        </>
+    )
 }
+

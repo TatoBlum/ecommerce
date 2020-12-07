@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { useCartContext } from '../../context/cartContext';
 import '../Cart/cart.css';
@@ -8,20 +8,8 @@ import { getFirestore } from '../../firebase/firebase';
 import 'firebase/firestore';
 import CartForm from '../CartForm/cartForm';
 import validarCamposNuevoUsuario from '../CartForm/servicios-formulario-usuario';
-import { useHistory } from 'react-router-dom';
 import { BeatLoader } from 'react-spinners';
-
-
-function getAmoutItems(cart) {
-    let result = 0;
-
-    cart.forEach(e => {
-        let totalItemPrice = e.item.price * e.quantity
-        result += totalItemPrice
-    })
-
-    return result;
-}
+import CheckoutMessage from '../CheckoutMessage/checkout-message';
 
 function useTextInput(defaultValue) {
     const [val, setVal] = useState(defaultValue);
@@ -35,8 +23,7 @@ function useTextInput(defaultValue) {
 
 export default function Cart() {
 
-    const { cart, removeItem, removeAllItems, setDocId } = useCartContext();
-    const [cartTotalPrince, setCartTotalPrince] = useState(0);
+    const { cart, removeItem, removeAllItems, setDocId, setCart, docId } = useCartContext();
 
     const [showA, setShowA] = useState(false);
 
@@ -44,14 +31,9 @@ export default function Cart() {
 
     const [loading, setLoading] = useState(false);
 
-    const history = useHistory();
+    const [showCheckout, setShowCheckout] = useState(false)
 
-    useEffect(() => {
-        let res = getAmoutItems(cart);
-        setCartTotalPrince(res);
-        //console.log(cartTotalPrince)
-
-    }, [cart, cartTotalPrince]);
+    let totalPrice = 0;
 
     const nameInput = useTextInput("");
     const emailInput = useTextInput("");
@@ -71,7 +53,6 @@ export default function Cart() {
 
     const formErrorHandler = (erroresForm) => {
         setDatosErrores([erroresForm]);
-        //console.log(erroresEmail);
     }
 
     const handleSubmit = (event) => {
@@ -84,11 +65,12 @@ export default function Cart() {
             setValidated(true);
             createOrder();
             updateSotck();
-            setLoading(true);
+            setLoading(false);
         } catch (err) {
             console.log(err);
         }
     }
+
 
     const createOrder = async () => {
         const newOrder = {
@@ -100,7 +82,7 @@ export default function Cart() {
             },
             items: cart.map(e => e),
             date: firebase.firestore.Timestamp.fromDate(new Date()),
-            total: cartTotalPrince,
+            total: totalPrice,
         }
 
         const db = getFirestore();
@@ -117,9 +99,10 @@ export default function Cart() {
             }
             setValidated(true);
             const doc = await orders.add(newOrder);
-            //console.log('Order created with id: ', doc.id);
             setDocId(doc.id);
-            history.push('/checkout/');
+            setCart([]);
+            setShowCheckout(true);
+
         } catch (err) {
             console.log(err);
             return false;
@@ -137,9 +120,6 @@ export default function Cart() {
         const outOfStock = [];
 
         query.docs.forEach((docSnapshot, index) => {
-            //console.log(docSnapshot.data().stock);
-            //console.log(cart[index].quantity);
-            //console.log(outOfStock.length);
 
             if (docSnapshot.data().stock >= cart[index].quantity) {
                 batch.update(docSnapshot.ref, { stock: docSnapshot.data().stock - cart[index].quantity });
@@ -162,9 +142,12 @@ export default function Cart() {
             </div>
             <div className="cart-main-container">
                 {
-                    cart.map((e, index) => {
+                    cart.map((e) => {
+
+                        totalPrice += e.item.price * e.quantity;
+
                         return (
-                            <div className="cart-items contenedor" key={index}>
+                            <div className="cart-items contenedor" key={e.item.id}>
                                 <img className="cart-item-img" src={`/img/${e.item.img}`} alt={e.item.description} />
                                 <li className="todo-items cart-item-li"> {e.item.name} {e.item.description} ${e.item.price} x {e.quantity} </li>
                                 <button onClick={removeItem(e.item.id)} className="trash-btn"><i className="fas fa-trash"></i></button>
@@ -173,7 +156,7 @@ export default function Cart() {
                         )
                     })
                 }
-                {cartTotalPrince > 0 ?
+                {totalPrice > 0 ?
                     <>
                         <div className="cart-items footer">
                             <Button
@@ -182,7 +165,7 @@ export default function Cart() {
                                 Borrar todos los items
                             </Button>
                             <h3 className="cart-items footer-h3">
-                                Total price: ${cartTotalPrince}
+                                Total price: ${totalPrice}
                             </h3>
                         </div>
                         {!showA && <Button
@@ -195,7 +178,6 @@ export default function Cart() {
                             Checkout
                             </Button>}
                         {showA && <CartForm
-                            //handleInputChange={handleInputChange}
                             handleSubmit={handleSubmit}
                             toggleShowA={toggleShowA}
                             validationErr={datosErrores}
@@ -203,8 +185,9 @@ export default function Cart() {
                             inputs={inputs}
                         />}
                     </>
-                    : <CartMessage />}
+                    : !showCheckout && <CartMessage />}
             </div>
+            {showCheckout &&<CheckoutMessage idFromItem={docId} />}
         </>
     )
 }
