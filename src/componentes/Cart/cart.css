@@ -50,10 +50,6 @@
   flex: 1;
 }
 
-/* .filter-todo {
-    padding: 1rem;
-} */
-
 .trash-btn,
 .complete-btn {
   background: #ff6f47;
@@ -64,29 +60,11 @@
   cursor: pointer;
   font-size: 1rem;
 }
-/* 
-.complete-btn {
-  background: rgb(11, 212, 162);
-} */
-
-/* .todo-item {
-  padding: 0rem 0.5rem;
-} */
 
 .fa-trash,
 .fa-check {
   pointer-events: none;
 }
-
-/* .fall {
-  transform: translateY(10rem) rotateZ(20deg);
-  opacity: 0;
-} */
-
-/* .completed {
-  text-decoration: line-through;
-  opacity: 0.5;
-} */
 
 .cart-item-remove-all-btn {
   background-color: #6668f4 !important;

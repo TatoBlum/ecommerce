@@ -40,5 +40,22 @@
     align-items: center;
 }
 
+.item-name-description{
+    width: 250px;
+    word-wrap: break-word;
+}
+
+.item-name-description h3{
+    color: black !important;
+
+}
+
+.item-name-description p{
+    color: grey !important;
+    margin-bottom: 0.5rem;
+
+}
+
+
 
 

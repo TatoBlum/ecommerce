@@ -11,8 +11,8 @@ import CategoryContainer from './componentes/CategoriesContainer/categoriesConta
 
 function App() {
 
-  function onAddHandler (counter) {
-    return counter
+  const onAddHandler = (counter) => {
+    return counter;
   }
 
   return (

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './counter.css';
 
-export default function Counter({ stock, initial, onAdd, itemName, unMountHandler, onItemCount, onSetStock }) {
+export default function Counter({ stock, initial, onAdd, unMountHandler, onItemCount, onSetStock }) {
 
     const [count, setCount] = useState(initial);
     const [itemStock, setItemStock] = useState(stock);
@@ -37,7 +37,6 @@ export default function Counter({ stock, initial, onAdd, itemName, unMountHandle
                     justifyContent: "center",
                     position: "absolute",
                 }}>
-                <h3 style={{ fontSize: "1rem" }}>{itemName}</h3>
                 <div className="counter-container">
                     <button
                         className="cuonter-button"

@@ -23,9 +23,9 @@ export default function CartProvider({ defaultCart = [], children}) {
         }
     }
 
-    function removeItem(id) {
+    const removeItem = (id) => {
         return ()=>{
-            setCart(cart.filter( e=> e.item.id !== id))      
+            setCart(cart.filter( e=> e.item.id !== id));      
         }
     }
 

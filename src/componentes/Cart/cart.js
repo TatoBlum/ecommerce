@@ -18,12 +18,12 @@ function useTextInput(defaultValue) {
         onChange: evt => setVal(evt.target.value),
         value: val,
         type: "text"
-    };
+    }
 }
 
 export default function Cart() {
 
-    const { cart, removeItem, removeAllItems, setDocId, setCart, docId } = useCartContext();
+    const { cart, removeItem, removeAllItems, setDocId, docId } = useCartContext();
 
     const [showA, setShowA] = useState(false);
 
@@ -100,7 +100,7 @@ export default function Cart() {
             setValidated(true);
             const doc = await orders.add(newOrder);
             setDocId(doc.id);
-            setCart([]);
+            removeAllItems();
             setShowCheckout(true);
 
         } catch (err) {

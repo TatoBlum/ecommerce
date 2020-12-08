@@ -19,19 +19,19 @@ export default function ItemDetail({ initial, stock, onAdd, itemDetail }) {
         setItemDetail(itemDetail);
     }, [itemDetail, Item])
 
-    const { name, description, img } = Item;
+    const { name, description, img, price } = Item;
 
     const unMountHandler = () => {
         setunMount(true);
         return unMount
     }
 
-    function onItemCount(params) {
+    const onItemCount = (params) => {
         setitemCount(params);
         return itemCount
     }
 
-    function onSetStock(params) {
+    const onSetStock = (params) => {
         setStock(params);
         return stockState
     }
@@ -42,6 +42,11 @@ export default function ItemDetail({ initial, stock, onAdd, itemDetail }) {
                 <div className="itemDetail-flex" style={{ width: 250 }}>
                     <img src={`/img/${img}`} className="product-Img" alt={description} />
                     <div className="itemDetail-img" style={{ height: "auto" }}>
+                    <div className="item-name-description">
+                        <h3>{name}</h3>
+                        <p>{description}</p>
+                        <p>${price}</p>
+                    </div>
                     </div>
                 </div>
                 <Counter
@@ -49,7 +54,6 @@ export default function ItemDetail({ initial, stock, onAdd, itemDetail }) {
                     stock={stock}
                     initial={initial}
                     onAdd={onAdd}
-                    itemName={name}
                     unMountHandler={unMountHandler}
                     onItemCount={onItemCount}
                     onSetStock={onSetStock}
@@ -64,7 +68,7 @@ export default function ItemDetail({ initial, stock, onAdd, itemDetail }) {
                         addItem={addItem}
                     ></BuyWidget>
                 </div>
-            : null}
+                : null}
         </>
     )
 

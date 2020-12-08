@@ -28,10 +28,9 @@ export default function ItemListContainer({ title }) {
         }).finally(()=>{
             setLoading(false);
             setTest(true);
-            //console.log(testingFire)
         })
 
-    }, []) //collectionItems
+    }, []) 
 
     return (
         <>
